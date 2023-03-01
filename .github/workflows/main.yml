@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  ruff:
+    name: ruff
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+      - run: |
+          python -m pip install --upgrade pip
+          pip install ruff
+      - name: Run Ruff
+        working-directory: ./src
+        run: ruff drafty
