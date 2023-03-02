@@ -20,7 +20,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 ALLOWED_HOSTS: list[str] = []
 
 INSTALLED_APPS = [
-    "tests.testapp",
     "django_nh3",
 ]
 

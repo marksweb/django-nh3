@@ -19,7 +19,7 @@ if __name__ == "__main__":
     ] + sys.argv[1:]
     subprocess.run(
         [
-            "python3.7",
+            "/usr/local/bin/python3.7",
             *common_args,
             "-P",
             "Django>=3.2a1,<3.3",
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.8",
+            "/usr/local/bin/python3.8",
             *common_args,
             "-P",
             "Django>=3.2a1,<3.3",
@@ -43,7 +43,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.8",
+            "/usr/local/bin/python3.8",
             *common_args,
             "-P",
             "Django>=4.0a1,<4.1",
@@ -55,7 +55,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.8",
+            "/usr/local/bin/python3.8",
             *common_args,
             "-P",
             "Django>=4.1a1,<4.2",
@@ -67,7 +67,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.8",
+            "/usr/local/bin/python3.8",
             *common_args,
             "-P",
             "Django>=4.2a1,<5.0",
@@ -79,7 +79,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.9",
+            "/usr/local/bin/python3.9",
             *common_args,
             "-P",
             "Django>=3.2a1,<3.3",
@@ -91,7 +91,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.9",
+            "/usr/local/bin/python3.9",
             *common_args,
             "-P",
             "Django>=4.0a1,<4.1",
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.9",
+            "/usr/local/bin/python3.9",
             *common_args,
             "-P",
             "Django>=4.1a1,<4.2",
@@ -115,7 +115,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.9",
+            "/usr/local/bin/python3.9",
             *common_args,
             "-P",
             "Django>=4.2a1,<5.0",
@@ -127,7 +127,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.10",
+            "/usr/local/bin/python3.10",
             *common_args,
             "-P",
             "Django>=3.2a1,<3.3",
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.10",
+            "/usr/local/bin/python3.10",
             *common_args,
             "-P",
             "Django>=4.0a1,<4.1",
@@ -151,7 +151,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.10",
+            "/usr/local/bin/python3.10",
             *common_args,
             "-P",
             "Django>=4.1a1,<4.2",
@@ -163,7 +163,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.10",
+            "/usr/local/bin/python3.10",
             *common_args,
             "-P",
             "Django>=4.2a1,<5.0",
@@ -175,7 +175,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.11",
+            "/usr/local/bin/python3.11",
             *common_args,
             "-P",
             "Django>=4.1a1,<4.2",
@@ -187,7 +187,7 @@ if __name__ == "__main__":
     )
     subprocess.run(
         [
-            "python3.11",
+            "/usr/local/bin/python3.11",
             *common_args,
             "-P",
             "Django>=4.2a1,<5.0",
