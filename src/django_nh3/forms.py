@@ -1,5 +1,4 @@
-from collections.abc import Callable
-from typing import Any, Dict, Optional, Set
+from typing import Any, Callable, Dict, Optional, Set
 
 import nh3
 from django import forms
@@ -10,10 +9,12 @@ class Nh3Field(forms.CharField):
     """ nh3 form field """
     empty_values = [None, "", [], (), {}]
 
-    def __init__(self, attributes: Dict[str, Set[str]] = {},
-                 attribute_filter: Optional[Callable[[str, str, str], Optional[str]]] = None,
-                 clean_content_tags: Set[str] = set(), link_rel: str = "",
-                 strip_comments: bool = False, tags: Set[str] = set(), *args, **kwargs):
+    def __init__(
+        self, attributes: Dict[str, Set[str]] = {},
+        attribute_filter: Optional[Callable[[str, str, str], str]] = None,
+        clean_content_tags: Set[str] = set(), link_rel: str = "",
+        strip_comments: bool = False, tags: Set[str] = set(), *args, **kwargs
+    ):
 
         super().__init__(*args, **kwargs)
 
@@ -28,9 +29,10 @@ class Nh3Field(forms.CharField):
 
     def to_python(self, value) -> Any:
         """
-        Strips any dodgy HTML tags from the input if the input value contains HTML
+        Strips any dodgy HTML tags from the input if the input value
+        contains HTML
 
-        Mark the return value as template safe.
+        Mark the return value as template safe if it contains HTML.
         """
         if value in self.empty_values:
             return self.empty_value
