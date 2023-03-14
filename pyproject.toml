@@ -8,6 +8,9 @@ requires = [
 line-length = 79
 target-version = ['py37']
 
+[tool.pytest]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+
 [tool.pytest.ini_options]
 addopts = """\
     --strict-config
