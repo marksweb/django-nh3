@@ -11,7 +11,7 @@ SECRET_KEY = "THISisNOTsecretADFKWERdklafda8324jbnkafd"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "NAME": ":memory:",
     },
 }
 
@@ -19,9 +19,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 ALLOWED_HOSTS: list[str] = []
 
-INSTALLED_APPS = [
-    "django_nh3",
-]
+INSTALLED_APPS = ["django_nh3", "tests"]
 
 ROOT_URLCONF = "tests.urls"
 TIME_ZONE = "UTC"

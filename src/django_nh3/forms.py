@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, Optional, Set
+from typing import Any, Callable, Dict, List, Optional, Set
 
 import nh3
 from django import forms
@@ -8,21 +8,23 @@ from django.utils.safestring import mark_safe
 class Nh3Field(forms.CharField):
     """nh3 form field"""
 
-    empty_values = [None, "", [], (), {}]
+    empty_values: List[Any] = [None, "", [], (), {}]
 
     def __init__(
         self,
         attributes: Dict[str, Set[str]] = {},
         attribute_filter: Optional[Callable[[str, str, str], str]] = None,
         clean_content_tags: Set[str] = set(),
+        empty_value: Optional[Any] = None,
         link_rel: str = "",
         strip_comments: bool = False,
         tags: Set[str] = set(),
-        *args,
-        **kwargs,
+        *args: Any,
+        **kwargs: Dict[Any, Any],
     ):
         super().__init__(*args, **kwargs)
 
+        self.empty_value = empty_value
         self.nh3_options = {
             "attributes": attributes,
             "attribute_filter": attribute_filter,
@@ -32,7 +34,7 @@ class Nh3Field(forms.CharField):
             "tags": tags,
         }
 
-    def to_python(self, value) -> Any:
+    def to_python(self, value: Any) -> Any:
         """
         Strips any dodgy HTML tags from the input if the input value
         contains HTML

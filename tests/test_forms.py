@@ -5,7 +5,9 @@ from django_nh3.forms import Nh3Field
 
 class TestNh3Field(TestCase):
     def test_empty(self):
-        """Test that the empty_value arg is returned for any input empty value"""
+        """
+        Test that the empty_value arg is returned for any input empty value
+        """
         for requested_empty_value in ("", None):
             field = Nh3Field(empty_value=requested_empty_value)
             for empty_value in field.empty_values:
