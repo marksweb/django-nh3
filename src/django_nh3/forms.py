@@ -6,16 +6,21 @@ from django.utils.safestring import mark_safe
 
 
 class Nh3Field(forms.CharField):
-    """ nh3 form field """
+    """nh3 form field"""
+
     empty_values = [None, "", [], (), {}]
 
     def __init__(
-        self, attributes: Dict[str, Set[str]] = {},
+        self,
+        attributes: Dict[str, Set[str]] = {},
         attribute_filter: Optional[Callable[[str, str, str], str]] = None,
-        clean_content_tags: Set[str] = set(), link_rel: str = "",
-        strip_comments: bool = False, tags: Set[str] = set(), *args, **kwargs
+        clean_content_tags: Set[str] = set(),
+        link_rel: str = "",
+        strip_comments: bool = False,
+        tags: Set[str] = set(),
+        *args,
+        **kwargs,
     ):
-
         super().__init__(*args, **kwargs)
 
         self.nh3_options = {
@@ -24,7 +29,7 @@ class Nh3Field(forms.CharField):
             "clean_content_tags": clean_content_tags,
             "link_rel": link_rel,
             "strip_comments": strip_comments,
-            "tags": tags
+            "tags": tags,
         }
 
     def to_python(self, value) -> Any:

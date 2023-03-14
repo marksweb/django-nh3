@@ -32,7 +32,9 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "OPTIONS": {
-            "context_processors": ["django.contrib.auth.context_processors.auth"]
+            "context_processors": [
+                "django.contrib.auth.context_processors.auth"
+            ]
         },
     }
 ]
