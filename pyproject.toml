@@ -8,33 +8,6 @@ requires = [
 line-length = 79
 target-version = ['py37']
 
-[tool.pytest]
-DJANGO_SETTINGS_MODULE = "tests.settings"
-
-[tool.pytest.ini_options]
-addopts = """\
-    --strict-config
-    --strict-markers
-    --ds=tests.settings
-    """
-django_find_project = false
-
-[tool.mypy]
-check_untyped_defs = true
-disallow_any_generics = true
-disallow_incomplete_defs = true
-disallow_untyped_defs = true
-mypy_path = "src/"
-namespace_packages = false
-no_implicit_optional = true
-show_error_codes = true
-warn_unreachable = true
-warn_unused_ignores = true
-
-[[tool.mypy.overrides]]
-module = "tests.*"
-allow_untyped_defs = true
-
 [tool.ruff]
 # https://beta.ruff.rs/docs/configuration/
 line-length = 79
@@ -82,6 +55,33 @@ combine-as-imports = true
 [tool.ruff.pyupgrade]
 # Preserve types, even if a file imports `from __future__ import annotations`.
 keep-runtime-typing = true
+
+[tool.pytest]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+
+[tool.pytest.ini_options]
+addopts = """\
+    --strict-config
+    --strict-markers
+    --ds=tests.settings
+    """
+django_find_project = false
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_incomplete_defs = true
+disallow_untyped_defs = true
+mypy_path = "src/"
+namespace_packages = false
+no_implicit_optional = true
+show_error_codes = true
+warn_unreachable = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+allow_untyped_defs = true
 
 [tool.rstcheck]
 ignore_directives = [

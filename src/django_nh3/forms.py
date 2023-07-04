@@ -1,4 +1,4 @@
-from typing import Any, Callable, Dict, List, Optional, Set
+from typing import Any, Callable
 
 import nh3
 from django import forms
@@ -8,19 +8,19 @@ from django.utils.safestring import mark_safe
 class Nh3Field(forms.CharField):
     """nh3 form field"""
 
-    empty_values: List[Any] = [None, "", [], (), {}]
+    empty_values: list[Any] = [None, "", [], (), {}]
 
     def __init__(
         self,
-        attributes: Dict[str, Set[str]] = {},
-        attribute_filter: Optional[Callable[[str, str, str], str]] = None,
-        clean_content_tags: Set[str] = set(),
-        empty_value: Optional[Any] = None,
+        attributes: dict[str, set[str]] = {},
+        attribute_filter: Callable[[str, str, str], str] | None = None,
+        clean_content_tags: set[str] = set(),
+        empty_value: Any | None = None,
         link_rel: str = "",
         strip_comments: bool = False,
-        tags: Set[str] = set(),
+        tags: set[str] = set(),
         *args: Any,
-        **kwargs: Dict[Any, Any],
+        **kwargs: dict[Any, Any],
     ):
         super().__init__(*args, **kwargs)
 
