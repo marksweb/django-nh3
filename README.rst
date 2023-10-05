@@ -28,6 +28,16 @@ The project is in it's infancy, setup because of `bleach becoming deprecated`_.
 It is setup with pre-commit to maintain code quality. This includes black for formatting, ruff for linting & checks.
 This is much like django, so currently referring to django's own `style docs`_ will be most helpful
 
+To contribute, fork the repo and clone your fork to your machine. Then setup a virtual environment however you prefer to do this.
+Then run the following setup the basics:
+
+.. code-block:: bash
+
+   python -m pip install pre-commit tox
+   pre-commit install
+
+Tox is used to run tests locally and on github. The test requirements are generated using pip-tools via ``requirements/compile.py``.
+
 .. _style docs: https://docs.djangoproject.com/en/dev/internals/contributing/writing-code/coding-style/#python-style
 .. _bleach becoming deprecated: https://bluesock.org/~willkg/blog/dev/bleach_6_0_0_deprecation.html
 
