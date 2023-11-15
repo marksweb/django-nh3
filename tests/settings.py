@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.sites",
     "django_nh3",
-    "tests"
+    "tests",
 ]
 
 ROOT_URLCONF = "tests.urls"

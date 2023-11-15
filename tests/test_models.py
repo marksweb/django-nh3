@@ -1,17 +1,13 @@
 from django.db import models
 from django.test import TestCase
 from django.utils.safestring import SafeString
-
 from django_nh3.models import Nh3Field
 
 
 class Nh3Content(models.Model):
-    """ Bleach test model"""
+    """Bleach test model"""
 
-    CHOICES = (
-        ('f', 'first choice'),
-        ('s', 'second choice')
-    )
+    CHOICES = (("f", "first choice"), ("s", "second choice"))
     content = Nh3Field(
         strip_comments=True,
     )
@@ -21,28 +17,25 @@ class Nh3Content(models.Model):
 
 
 class Nh3NullableContent(models.Model):
-    """ Bleach test model"""
+    """Bleach test model"""
 
-    content = Nh3Field(
-        blank=True,
-        null=True
-    )
+    content = Nh3Field(blank=True, null=True)
 
 
 class TestNh3ModelField(TestCase):
-    """ Test model field """
+    """Test model field"""
 
     def test_cleaning(self):
-        """ Test values are bleached """
+        """Test values are bleached"""
         test_data = {
-            'html_data': "<h1>Heading</h1>",
-            'no_html': "Heading",
-            'html_comment': "<!-- this is a comment -->",
+            "html_data": "<h1>Heading</h1>",
+            "no_html": "Heading",
+            "html_comment": "<!-- this is a comment -->",
         }
         expected_values = {
-            'html_data': "Heading",
-            'no_html': "Heading",
-            'html_comment': ""
+            "html_data": "Heading",
+            "no_html": "Heading",
+            "html_comment": "",
         }
 
         for key, value in test_data.items():
@@ -72,21 +65,21 @@ class TestNh3ModelField(TestCase):
 
 
 class TestNh3NullableModelField(TestCase):
-    """ Test model field """
+    """Test model field"""
 
     def test_cleaning(self):
-        """ Test values are bleached """
+        """Test values are bleached"""
         test_data = {
-            'none': None,
-            'empty': "",
-            'whitespaces': "   ",
-            'linebreak': "\n",
+            "none": None,
+            "empty": "",
+            "whitespaces": "   ",
+            "linebreak": "\n",
         }
         expected_values = {
-            'none': None,
-            'empty': "",
-            'whitespaces': "   ",
-            'linebreak': "\n",
+            "none": None,
+            "empty": "",
+            "whitespaces": "   ",
+            "linebreak": "\n",
         }
 
         for key, value in test_data.items():

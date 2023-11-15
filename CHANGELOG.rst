@@ -16,4 +16,3 @@ unreleased
 ------------------
 
 - Initial release offering a form field with NH3 sanitization
-
