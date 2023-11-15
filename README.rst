@@ -11,9 +11,9 @@ Django integration with for nh3, Python binding to Ammonia HTML sanitizer Rust c
 Requirements
 ------------
 
-Python 3.7 to 3.11 supported.
+Python 3.10 to 3.12 supported.
 
-Django 3.2 to 4.2 supported.
+Django 3.2 to 5.0 supported.
 
 
 .. _nh3 docs: https://nh3.readthedocs.io/en/latest/?badge=latest

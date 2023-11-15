@@ -58,6 +58,7 @@ keep-runtime-typing = true
 
 [tool.pytest]
 DJANGO_SETTINGS_MODULE = "tests.settings"
+django_find_project = false
 
 [tool.pytest.ini_options]
 addopts = """\
