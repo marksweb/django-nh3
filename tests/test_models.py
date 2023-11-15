@@ -42,7 +42,7 @@ class TestNh3ModelField(TestCase):
         expected_values = {
             'html_data': "Heading",
             'no_html': "Heading",
-            'bleach_comment': ""
+            'html_comment': ""
         }
 
         for key, value in test_data.items():

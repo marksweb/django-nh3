@@ -11,7 +11,7 @@ SECRET_KEY = "THISisNOTsecretADFKWERdklafda8324jbnkafd"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": ":memory:",
+        "NAME": "mem_db",
     },
 }
 
@@ -19,7 +19,15 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 ALLOWED_HOSTS: list[str] = []
 
-INSTALLED_APPS = ["django_nh3", "tests"]
+INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.sites",
+    "django_nh3",
+    "tests"
+]
 
 ROOT_URLCONF = "tests.urls"
 TIME_ZONE = "UTC"
