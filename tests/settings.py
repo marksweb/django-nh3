@@ -20,11 +20,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 ALLOWED_HOSTS: list[str] = []
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.sites",
     "django_nh3",
     "tests",
 ]
