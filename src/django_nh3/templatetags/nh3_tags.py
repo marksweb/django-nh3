@@ -8,7 +8,7 @@ register = template.Library()
 
 
 @register.filter(name="nh3")
-def nh3_value(value: str | None, tags: str | None | None = None) -> SafeText:
+def nh3_value(value: str | None, tags: str | None = None) -> SafeText:
     if value is None:
         return None
 
