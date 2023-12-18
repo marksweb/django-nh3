@@ -59,7 +59,7 @@ def get_nh3_default_options() -> dict[str | None, Any]:
             # Convert the iterable format of BLEACH_ALLOWED_ATTRIBUTES
             # & BLEACH_ALLOWED_TAGS to that of nh3
             if setting == "BLEACH_ALLOWED_ATTRIBUTES":
-                attr = {"*", set(attr)}
+                attr = {"*": frozenset(attr)}
             elif setting == "BLEACH_ALLOWED_TAGS":
                 attr = set(attr)
 
