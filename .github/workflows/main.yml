@@ -44,7 +44,7 @@ jobs:
         with:
           name: coverage-data-${{ matrix.python-version }}
           path: '${{ github.workspace }}/.coverage.*'
-      - run: ls -R coverage-data
+      - run: ls -R ${{ github.workspace }}
 
   coverage:
     name: Coverage
