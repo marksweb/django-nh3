@@ -12,11 +12,14 @@ def nh3_value(value: str | None, tags: str | None = None) -> SafeText:
     if value is None:
         return None
 
+    args = {}
+
     nh3_args = get_nh3_default_options()
     if tags is not None:
         args = nh3_args.copy()
         args["tags"] = set(tags.split(","))
     else:
         args = nh3_args
+
     nh3_value = nh3.clean(value, **args)
     return mark_safe(nh3_value)
