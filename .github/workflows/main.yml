@@ -61,6 +61,10 @@ jobs:
 
       - name: Download data
         uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+          path: '${{ github.workspace }}/artifacts'
+          pattern: coverage-data-*
 
       - name: Combine coverage and fail if it's <100%
         run: |
