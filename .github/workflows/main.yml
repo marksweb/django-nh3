@@ -43,7 +43,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-data-${{ matrix.python-version }}
-          path: '${{ github.workspace }}/.coverage.*'
 
   coverage:
     name: Coverage
@@ -62,9 +61,10 @@ jobs:
       - name: Download data
         uses: actions/download-artifact@v4
         with:
-          merge-multiple: true
-          path: '${{ github.workspace }}/artifacts'
+          path: artifacts
           pattern: coverage-data-*
+          merge-multiple: true
+      - run: ls -R coverage-data
 
       - name: Combine coverage and fail if it's <100%
         run: |
