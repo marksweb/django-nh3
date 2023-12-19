@@ -43,6 +43,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coverage-data-${{ matrix.python-version }}
+          path: '${{ github.workspace }}/.coverage.*'
+      - run: ls -R coverage-data
 
   coverage:
     name: Coverage
