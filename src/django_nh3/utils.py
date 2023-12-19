@@ -36,6 +36,15 @@ def get_nh3_default_options() -> dict[str, Any]:
         if hasattr(settings, setting):
             attr = getattr(settings, setting)
 
+            # Convert from general iterables to sets
+            if setting == "NH3_ALLOWED_TAGS":
+                attr = set(attr)
+            elif setting == "NH3_ALLOWED_ATTRIBUTES":
+                copy_dict = attr.copy()
+                for tag, attributes in attr.items():
+                    copy_dict[tag] = set(attributes)
+                attr = copy_dict
+
             nh3_args[kwarg] = attr
 
     return nh3_args
