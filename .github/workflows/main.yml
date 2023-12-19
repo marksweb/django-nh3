@@ -44,7 +44,6 @@ jobs:
         with:
           name: coverage-data-${{ matrix.python-version }}
           path: '${{ github.workspace }}/.coverage.*'
-      - run: ls -al ${{ github.workspace }}
 
   coverage:
     name: Coverage
@@ -66,7 +65,6 @@ jobs:
           path: ${{ github.workspace }}
           pattern: coverage-data-*
           merge-multiple: true
-      - run: ls -al ${{ github.workspace }}
 
       - name: Combine coverage and fail if it's <100%
         run: |
