@@ -42,7 +42,7 @@ jobs:
       - name: Upload coverage data
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-data
+          name: coverage-data-${{ matrix.python-version }}
           path: '${{ github.workspace }}/.coverage.*'
 
   coverage:
@@ -60,9 +60,7 @@ jobs:
         run: python -m pip install --upgrade coverage[toml]
 
       - name: Download data
-        uses: actions/download-artifact@v3
-        with:
-          name: coverage-data
+        uses: actions/download-artifact@v4
 
       - name: Combine coverage and fail if it's <100%
         run: |
