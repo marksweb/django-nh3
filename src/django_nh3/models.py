@@ -41,7 +41,7 @@ class Nh3Field(models.TextField):
     ) -> FormField:
         """Makes the field for a ModelForm"""
 
-        # If field doesn't have any choices add kwargs expected by BleachField.
+        # If field doesn't have any choices add kwargs expected by Nh3Field.
         if not self.choices:
             kwargs.update(
                 {
