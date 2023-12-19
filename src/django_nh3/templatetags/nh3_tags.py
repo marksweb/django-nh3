@@ -8,18 +8,16 @@ register = template.Library()
 
 
 @register.filter(name="nh3")
-def nh3_value(value: str | None, tags: str | None = None) -> SafeText:
+def nh3_value(value: str | None, tags: str | None = None) -> SafeText | None:
     """
     Takes an input HTML value and sanitizes it utilizing nh3,
         returning a SafeText object that can be rendered by Django.
 
     Accepts an optional argument of allowed tags. Should be a comma delimited
-        string (ie. "img,span" or "img")
+        string (i.e. "img,span" or "img")
     """
     if value is None:
         return None
-
-    args = {}
 
     nh3_args = get_nh3_default_options()
     if tags is not None:
@@ -28,5 +26,5 @@ def nh3_value(value: str | None, tags: str | None = None) -> SafeText:
     else:
         args = nh3_args
 
-    nh3_value = nh3.clean(value, **args)
-    return mark_safe(nh3_value)
+    clean_value = nh3.clean(value, **args)
+    return mark_safe(clean_value)
