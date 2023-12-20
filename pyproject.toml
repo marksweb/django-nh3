@@ -4,13 +4,50 @@ requires = [
   "setuptools",
 ]
 
-[tool.black]
-line-length = 79
-target-version = ['py310']
+[project]
+name = "django-nh3"
+version = "0.1.0"
+description = "Django integration with for nh3, Python binding to Ammonia HTML sanitizer Rust crate."
+readme = "README.rst"
+keywords = [
+  "Django",
+]
+license = {file = "LICENSE"}
+authors = [{name = "Mark Walker", email = "theshow@gmail.com"}]
+requires-python = ">=3.10"
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Framework :: Django :: 3.2",
+  "Framework :: Django :: 4.0",
+  "Framework :: Django :: 4.1",
+  "Framework :: Django :: 4.2",
+  "Framework :: Django :: 5.0",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Natural Language :: English",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Typing :: Typed",
+]
+dependencies = [
+  "Django>=3.2",
+  "nh3",
+]
+[project.urls]
+    Changelog = "https://github.com/marksweb/django-nh3/blob/main/CHANGELOG.rst"
+    Mastodon = "https://fosstodon.org/@markwalker"
+    Repository = "https://github.com/marksweb/django-nh3"
+    Twitter = "https://twitter.com/markwalker_"
+
+[tool.setuptools.packages.find]
+where = ["src"]
 
 [tool.ruff]
 # https://beta.ruff.rs/docs/configuration/
-line-length = 79
 select = [
   "E",  # pycodestyle errors
   "W",  # pycodestyle warnings
@@ -25,15 +62,10 @@ select = [
   "UP", # pyupgrade
 ]
 
-exclude = [
-  ".eggs",
-  ".git",
-  ".mypy_cache",
+extend-exclude = [
   ".ruff_cache",
   ".env",
-  ".venv",
   "**migrations/**",
-  "venv",
 ]
 
 ignore = [
@@ -67,6 +99,17 @@ addopts = """\
     --ds=tests.settings
     """
 django_find_project = false
+
+[tool.coverage.run]
+branch = true
+parallel = true
+source = ["django_nh3", "tests"]
+
+[tool.coverage.paths]
+source = ["src", ".tox/py*/**/site-packages"]
+
+[tool.coverage.report]
+show_missing = true
 
 [tool.mypy]
 check_untyped_defs = true

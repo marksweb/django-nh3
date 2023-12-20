@@ -47,12 +47,8 @@ class Nh3Field(models.TextField):
                 {
                     "max_length": self.max_length,
                     "attributes": self.nh3_options.get("attributes"),
-                    "attribute_filter": self.nh3_options.get(
-                        "attribute_filter"
-                    ),
-                    "clean_content_tags": self.nh3_options.get(
-                        "clean_content_tags"
-                    ),
+                    "attribute_filter": self.nh3_options.get("attribute_filter"),
+                    "clean_content_tags": self.nh3_options.get("clean_content_tags"),
                     "link_rel": self.nh3_options.get("link_rel"),
                     "strip_comments": self.nh3_options.get("strip_comments"),
                     "tags": self.nh3_options.get("tags"),
