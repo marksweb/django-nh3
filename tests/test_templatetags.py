@@ -19,9 +19,7 @@ class TestBleachTemplates(TestCase):
     def test_bleaching_none(self):
         """Test that None is handled properly as an input"""
         context = Context({"none_value": None})
-        template_to_render = Template(
-            "{% load nh3_tags %}" "{{ none_value|nh3 }}"
-        )
+        template_to_render = Template("{% load nh3_tags %}" "{{ none_value|nh3 }}")
         rendered_template = template_to_render.render(context)
         self.assertEqual("None", rendered_template)
 
@@ -40,6 +38,4 @@ class TestBleachTemplates(TestCase):
             "{% load nh3_tags %}" '{{ some_unsafe_content|nh3:"img" }}'
         )
         rendered_template = template_to_render.render(context)
-        self.assertInHTML(
-            '<img src="">I\'m not trying to XSS you', rendered_template
-        )
+        self.assertInHTML('<img src="">I\'m not trying to XSS you', rendered_template)

@@ -46,10 +46,6 @@ dependencies = [
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.black]
-line-length = 79
-target-version = ['py310']
-
 [tool.ruff]
 # https://beta.ruff.rs/docs/configuration/
 line-length = 79
