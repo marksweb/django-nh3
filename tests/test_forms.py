@@ -11,14 +11,10 @@ class TestNh3Field(TestCase):
         for requested_empty_value in ("", None):
             field = Nh3Field(empty_value=requested_empty_value)
             for empty_value in field.empty_values:
-                self.assertEqual(
-                    field.to_python(empty_value), requested_empty_value
-                )
+                self.assertEqual(field.to_python(empty_value), requested_empty_value)
 
     def test_return_type(self):
         """Test bleached values are SafeString objects"""
         field = Nh3Field()
         self.assertIsInstance(field.to_python("some text"), str)
-        self.assertIsInstance(
-            field.to_python("<h1>some text</h1>"), SafeString
-        )
+        self.assertIsInstance(field.to_python("<h1>some text</h1>"), SafeString)

@@ -88,20 +88,3 @@ jobs:
         with:
           name: html-report
           path: htmlcov
-
-  ruff:
-    name: ruff
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{env.PYTHON_LATEST}}
-      - run: |
-          python -Im pip install --upgrade pip
-          pip install ruff
-      - name: Run Ruff
-        working-directory: ./src
-        run: ruff django_nh3
