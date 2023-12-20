@@ -48,7 +48,6 @@ where = ["src"]
 
 [tool.ruff]
 # https://beta.ruff.rs/docs/configuration/
-line-length = 79
 select = [
   "E",  # pycodestyle errors
   "W",  # pycodestyle warnings
@@ -63,15 +62,10 @@ select = [
   "UP", # pyupgrade
 ]
 
-exclude = [
-  ".eggs",
-  ".git",
-  ".mypy_cache",
+extend-exclude = [
   ".ruff_cache",
   ".env",
-  ".venv",
   "**migrations/**",
-  "venv",
 ]
 
 ignore = [
