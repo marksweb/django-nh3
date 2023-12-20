@@ -13,7 +13,7 @@ keywords = [
   "Django",
 ]
 license = {file = "LICENSE"}
-authors = [{name = "Mark Walker", email = "heshow@gmail.com"}]
+authors = [{name = "Mark Walker", email = "theshow@gmail.com"}]
 requires-python = ">=3.10"
 classifiers = [
   "Development Status :: 4 - Beta",
