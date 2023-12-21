@@ -78,7 +78,7 @@ jobs:
         run: |
           python -Im coverage combine
           python -Im coverage html --skip-covered --skip-empty
-          python -Im coverage report
+          python -Im coverage report --fail-under=100
           echo "## Coverage summary" >> $GITHUB_STEP_SUMMARY
           python -Im coverage report --format=markdown >> $GITHUB_STEP_SUMMARY
 

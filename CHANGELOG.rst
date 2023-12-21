@@ -5,6 +5,8 @@ Changelog
 unreleased
 ----------
 
+- Use the super class to strip the value on the form field.
+
 0.1.0 - 2023-12-19
 ------------------
 

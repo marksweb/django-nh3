@@ -23,12 +23,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("content", django_nh3.models.Nh3Field()),
-                (
-                    "choice",
-                    django_nh3.models.Nh3Field(
-                        choices=[("f", "first choice"), ("s", "second choice")]
-                    ),
-                ),
                 ("blank_field", django_nh3.models.Nh3Field(blank=True)),
                 (
                     "null_field",
@@ -46,6 +40,12 @@ class Migration(migrations.Migration):
                         primary_key=True,
                         serialize=False,
                         verbose_name="ID",
+                    ),
+                ),
+                (
+                    "choice",
+                    django_nh3.models.Nh3Field(
+                        choices=[("f", "first choice"), ("s", "second choice")]
                     ),
                 ),
                 ("content", django_nh3.models.Nh3Field(blank=True, null=True)),

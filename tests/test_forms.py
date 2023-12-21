@@ -2,6 +2,9 @@ from django.test import TestCase
 from django.utils.safestring import SafeString
 from django_nh3.forms import Nh3Field
 
+# import urls to get coverage
+from . import urls  # noqa: F401
+
 
 class TestNh3Field(TestCase):
     def test_empty(self):
@@ -18,3 +21,10 @@ class TestNh3Field(TestCase):
         field = Nh3Field()
         self.assertIsInstance(field.to_python("some text"), str)
         self.assertIsInstance(field.to_python("<h1>some text</h1>"), SafeString)
+
+    def test_values(self):
+        """Test bleached values are SafeString objects"""
+        field = Nh3Field()
+        self.assertEqual(field.to_python("some text"), "some text")
+        self.assertEqual(field.to_python(" some text "), "some text")
+        self.assertEqual(field.to_python("<h1>some text</h1>"), "some text")
