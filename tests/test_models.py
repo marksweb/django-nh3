@@ -6,19 +6,17 @@ from django_nh3.models import Nh3Field
 
 
 class Nh3Content(models.Model):
-    """Bleach test model"""
+    """NH3 test model"""
 
-    CHOICES = (("f", "first choice"), ("s", "second choice"))
     content = Nh3Field(
         strip_comments=True,
     )
-    choice = Nh3Field(choices=CHOICES)
     blank_field = Nh3Field(blank=True)
     null_field = Nh3Field(blank=True, null=True)
 
 
 class Nh3ContentModelForm(ModelForm):
-    """Bleach test model form"""
+    """NH3 test model form"""
 
     class Meta:
         model = Nh3Content
@@ -26,16 +24,26 @@ class Nh3ContentModelForm(ModelForm):
 
 
 class Nh3NullableContent(models.Model):
-    """Bleach test model"""
+    """NH3 test model"""
 
+    CHOICES = (("f", "first choice"), ("s", "second choice"))
+    choice = Nh3Field(choices=CHOICES, blank=True)
     content = Nh3Field(blank=True, null=True)
+
+
+class Nh3NullableContentModelForm(ModelForm):
+    """NH3 test model form"""
+
+    class Meta:
+        model = Nh3NullableContent
+        fields = ["choice"]
 
 
 class TestNh3ModelField(TestCase):
     """Test model field"""
 
     def test_cleaning(self):
-        """Test values are bleached"""
+        """Test values are sanitized"""
         test_data = {
             "html_data": "<h1>Heading</h1>",
             "no_html": "Heading",
@@ -77,7 +85,7 @@ class TestNh3NullableModelField(TestCase):
     """Test model field"""
 
     def test_cleaning(self):
-        """Test values are bleached"""
+        """Test values are sanitized"""
         test_data = {
             "none": None,
             "empty": "",
@@ -100,7 +108,7 @@ class TestNh3ModelFormField(TestCase):
     """Test model form field"""
 
     def test_cleaning(self):
-        """Test values are bleached"""
+        """Test values are sanitized"""
         test_data = {
             "html_data": "<h1>Heading</h1>",
             "no_html": "Heading",
@@ -126,3 +134,13 @@ class TestNh3ModelFormField(TestCase):
                 data={"content": "<!-- this is a comment -->"}
             ).is_valid()
         )
+
+    def test_field_choices(self):
+        """Content field strips comments so ensure they aren't allowed"""
+        test_data = dict(Nh3NullableContent.CHOICES)
+
+        for key, value in test_data.items():
+            form = Nh3NullableContentModelForm(data={"choice": key})
+            self.assertTrue(form.is_valid())
+            obj = form.save()
+            self.assertEqual(obj.get_choice_display(), value)
