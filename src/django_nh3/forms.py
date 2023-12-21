@@ -44,9 +44,9 @@ class Nh3Field(forms.CharField):
 
         Mark the return value as template safe if it contains HTML.
         """
+        value = super().to_python(value)
         if value in self.empty_values:
+            # Ensures that None is handled properly as an input
             return self.empty_value
-        if nh3.is_html(value):
-            return mark_safe(nh3.clean(value, **self.nh3_options))
         else:
-            return value
+            return mark_safe(nh3.clean(value, **self.nh3_options))
