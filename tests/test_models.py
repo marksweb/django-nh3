@@ -1,4 +1,5 @@
 from django.db import models
+from django.forms import ModelForm
 from django.test import TestCase
 from django.utils.safestring import SafeString
 from django_nh3.models import Nh3Field
@@ -14,6 +15,14 @@ class Nh3Content(models.Model):
     choice = Nh3Field(choices=CHOICES)
     blank_field = Nh3Field(blank=True)
     null_field = Nh3Field(blank=True, null=True)
+
+
+class Nh3ContentModelForm(ModelForm):
+    """Bleach test model form"""
+
+    class Meta:
+        model = Nh3Content
+        fields = ["content"]
 
 
 class Nh3NullableContent(models.Model):
@@ -85,3 +94,35 @@ class TestNh3NullableModelField(TestCase):
         for key, value in test_data.items():
             obj = Nh3NullableContent.objects.create(content=value)
             self.assertEqual(obj.content, expected_values[key])
+
+
+class TestNh3ModelFormField(TestCase):
+    """Test model form field"""
+
+    def test_cleaning(self):
+        """Test values are bleached"""
+        test_data = {
+            "html_data": "<h1>Heading</h1>",
+            "no_html": "Heading",
+            "spacing": " Heading ",
+        }
+        expected_values = {
+            "html_data": "Heading",
+            "no_html": "Heading",
+            "spacing": "Heading",
+        }
+
+        for key, value in test_data.items():
+            form = Nh3ContentModelForm(data={"content": value})
+            self.assertTrue(form.is_valid())
+            obj = form.save()
+            self.assertEqual(obj.content, expected_values[key])
+
+    def test_stripped_comments(self):
+        """Content field strips comments so ensure they aren't allowed"""
+
+        self.assertFalse(
+            Nh3ContentModelForm(
+                data={"content": "<!-- this is a comment -->"}
+            ).is_valid()
+        )
