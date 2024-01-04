@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - run: python -Im pip install ruff
+    - run: python -Im pip install --user ruff
 
     - name: Run ruff
       working-directory: ./src
