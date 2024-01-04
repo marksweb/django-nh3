@@ -17,10 +17,10 @@ def get_nh3_default_options() -> dict[str, Any]:
         BLEACH_ALLOWED_ATTRIBUTES   -> NH3_ALLOWED_ATTRIBUTES
         BLEACH_STRIP_COMMENTS       -> NH3_STRIP_COMMENTS
 
-    While other settings are have no current support in nh3:
+    While other settings have no current support in nh3:
 
         BLEACH_ALLOWED_STYLES       -> There is no support for styling
-        BLEACH_ALLOWED_PROTOCOLS    -> There is no suport for protocols
+        BLEACH_ALLOWED_PROTOCOLS    -> There is no support for protocols
         BLEACH_STRIP_TAGS           -> This is the default behavior of nh3
 
     """
