@@ -13,7 +13,7 @@ Requirements
 
 Python 3.10 to 3.12 supported.
 
-Django 3.2 to 5.0 supported.
+Django 3.2 to 5.1 supported.
 
 
 .. _nh3 docs: https://nh3.readthedocs.io/en/latest/?badge=latest

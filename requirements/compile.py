@@ -89,3 +89,15 @@ if __name__ == "__main__":
         check=True,
         capture_output=True,
     )
+    subprocess.run(
+        [
+            "/usr/local/bin/python3.12",
+            *common_args,
+            "-P",
+            "Django>=5.1a1,<5.2",
+            "-o",
+            "py312-django51.txt",
+        ],
+        check=True,
+        capture_output=True,
+    )
