@@ -11,30 +11,31 @@ from django.forms import Field as FormField
 from django.utils.safestring import mark_safe
 
 from . import forms
+from .utils import get_nh3_update_options
 
 
 class Nh3Field(models.TextField):
     def __init__(
         self,
-        attributes: dict[str, set[str]] = {},
+        attributes: dict[str, set[str]] | None = None,
         attribute_filter: Callable[[str, str, str], str] | None = None,
-        clean_content_tags: set[str] = set(),
+        clean_content_tags: set[str] | None = None,
         link_rel: str = "",
         strip_comments: bool = False,
-        tags: set[str] = set(),
+        tags: set[str] | None = None,
         *args: Any,
         **kwargs: Any,
     ) -> None:
         super().__init__(*args, **kwargs)
 
-        self.nh3_options = {
-            "attributes": attributes,
-            "attribute_filter": attribute_filter,
-            "clean_content_tags": clean_content_tags,
-            "link_rel": link_rel,
-            "strip_comments": strip_comments,
-            "tags": tags,
-        }
+        self.nh3_options = get_nh3_update_options(
+            attributes=attributes,
+            attribute_filter=attribute_filter,
+            clean_content_tags=clean_content_tags,
+            link_rel=link_rel,
+            strip_comments=strip_comments,
+            tags=tags,
+        )
 
     def formfield(
         self, form_class: FormField = forms.Nh3Field, **kwargs: Any
