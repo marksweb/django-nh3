@@ -1,6 +1,7 @@
 from unittest.mock import patch
 
 from django.test import TestCase
+
 from django_nh3.utils import get_nh3_default_options
 
 from .constants import ALLOWED_ATTRIBUTES, ALLOWED_TAGS, STRIP_COMMENTS
