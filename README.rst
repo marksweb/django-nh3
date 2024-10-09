@@ -11,7 +11,7 @@ Django integration with for nh3, Python binding to Ammonia HTML sanitizer Rust c
 Requirements
 ------------
 
-Python 3.10 to 3.12 supported.
+Python 3.10 to 3.13 supported.
 
 Django 3.2 to 5.1 supported.
 
@@ -33,7 +33,7 @@ Then run the following setup the basics:
 
 .. code-block:: bash
 
-   python -m pip install pre-commit tox
+   python -m pip install pre-commit tox-uv
    pre-commit install
 
 Tox is used to run tests locally and on github. The test requirements are generated using pip-tools via ``requirements/compile.py``.
