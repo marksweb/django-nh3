@@ -16,46 +16,52 @@ env:
   PIP_DISABLE_PIP_VERSION_CHECK: "1"
   PIP_NO_PYTHON_VERSION_WARNING: "1"
   # Keep in sync with .pre-commit-config.yaml/default_language_version/python.
-  PYTHON_LATEST: "3.12"
+  PYTHON_LATEST: "3.13"
 
 jobs:
   tests:
     name: Python ${{ matrix.python-version }}
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
 
     strategy:
       matrix:
         python-version:
-          - '3.10'
-          - '3.11'
-          - '3.12'
+        - '3.10'
+        - '3.11'
+        - '3.12'
+        - '3.13'
 
     steps:
-      - uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
-          cache: pip
-          cache-dependency-path: 'requirements/*.txt'
+    - uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+        allow-prereleases: true
 
-      - name: Install dependencies
-        run: |
-          python -Im pip install --upgrade pip setuptools wheel
-          python -Im pip install --upgrade 'tox>=4.7'
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+      with:
+        enable-cache: true
+        cache-dependency-glob: tests/requirements/*.txt
 
-      - name: Run tox targets for ${{ matrix.python-version }}
-        run: tox run -f py$(echo ${{ matrix.python-version }} | tr -d .)
+    - name: Install dependencies
+      run: uv pip install --system tox tox-uv
 
-      - name: Upload coverage data
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-data-${{ matrix.python-version }}
-          path: '${{ github.workspace }}/.coverage.*'
+    - name: Run tox targets for ${{ matrix.python-version }}
+      run: tox run -f py$(echo ${{ matrix.python-version }} | tr -d .)
+
+    - name: Upload coverage data
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-data-${{ matrix.python-version }}
+        path: '${{ github.workspace }}/.coverage.*'
+        include-hidden-files: true
+        if-no-files-found: error
 
   coverage:
     name: Coverage
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: tests
     steps:
       - uses: actions/checkout@v4
@@ -64,8 +70,11 @@ jobs:
         with:
           python-version: ${{env.PYTHON_LATEST}}
 
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
       - name: Install dependencies
-        run: python -Im pip install --upgrade coverage[toml]
+        run: uv pip install --system coverage[toml]
 
       - name: Download data
         uses: actions/download-artifact@v4
