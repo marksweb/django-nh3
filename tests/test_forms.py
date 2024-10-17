@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.utils.safestring import SafeString
+
 from django_nh3.forms import Nh3Field
 
 # import urls to get coverage

@@ -2,6 +2,7 @@ from django.db import models
 from django.forms import ModelForm
 from django.test import TestCase
 from django.utils.safestring import SafeString
+
 from django_nh3.models import Nh3Field
 
 
