@@ -18,7 +18,7 @@ class Nh3Field(forms.CharField):
         attributes: dict[str, set[str]] = {},
         attribute_filter: Callable[[str, str, str], str] | None = None,
         clean_content_tags: set[str] = set(),
-        empty_value: Any | None = None,
+        empty_value: Any | None = "",
         link_rel: str = "",
         strip_comments: bool = False,
         tags: set[str] = set(),
