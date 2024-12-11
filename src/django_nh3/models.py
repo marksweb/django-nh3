@@ -84,7 +84,7 @@ def Nh3Field(*args: Any, **kwargs: Any) -> Nh3Text:
     warnings.filterwarnings(
         action="default",
         message="Nh3Field is deprecated, use Nh3Text instead",
-        category=DeprecationWarning,
+        category=FutureWarning,
     )
     return Nh3Text(*args, **kwargs)
 
