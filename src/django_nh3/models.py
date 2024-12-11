@@ -81,10 +81,10 @@ class Nh3Text(models.TextField):
 
 
 def Nh3Field(*args: Any, **kwargs: Any) -> Nh3Text:
-    warnings.warn(
-        "Nh3Field is deprecated, use Nh3Text instead",
-        DeprecationWarning,
-        stacklevel=2,
+    warnings.filterwarnings(
+        action="default",
+        message="Nh3Field is deprecated, use Nh3Text instead",
+        category=DeprecationWarning,
     )
     return Nh3Text(*args, **kwargs)
 
