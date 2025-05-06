@@ -16,16 +16,22 @@ from . import forms
 class Nh3Field(models.TextField):
     def __init__(
         self,
-        attributes: dict[str, set[str]] = {},
+        attributes: dict[str, set[str]] | None = None,
         attribute_filter: Callable[[str, str, str], str] | None = None,
-        clean_content_tags: set[str] = set(),
+        clean_content_tags: set[str] | None = None,
         link_rel: str = "",
         strip_comments: bool = False,
-        tags: set[str] = set(),
+        tags: set[str] | None = None,
         *args: Any,
         **kwargs: Any,
     ) -> None:
         super().__init__(*args, **kwargs)
+        if attributes is None:
+            attributes = {}
+        if clean_content_tags is None:
+            clean_content_tags = set()
+        if tags is None:
+            tags = set()
 
         self.nh3_options = {
             "attributes": attributes,
