@@ -1,7 +1,6 @@
 import warnings
 from collections.abc import Callable
 from typing import Any
-from typing_extensions import deprecated
 
 import nh3
 from django.db import models
@@ -9,6 +8,7 @@ from django.db.backends.base.base import BaseDatabaseWrapper
 from django.db.models import Expression, Model
 from django.forms import Field as FormField
 from django.utils.safestring import mark_safe
+from typing_extensions import deprecated
 
 from . import forms
 
@@ -93,6 +93,7 @@ class Nh3Field(Nh3FieldMixin, models.TextField):
     .. deprecated:: 0.2.0
     Use :class:`Nh3TextField` instead.
     """
+
     def __init__(self, *args, **kwargs):
         warnings.warn(
             "Nh3Field is deprecated and will be removed in a future version. Use Nh3TextField instead.",

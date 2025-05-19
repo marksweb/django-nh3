@@ -8,7 +8,6 @@ from .models import (
 )
 
 
-
 class Nh3CharFieldContentModelForm(ModelForm):
     """NH3 test model form"""
 

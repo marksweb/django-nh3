@@ -23,10 +23,15 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("content", django_nh3.models.Nh3CharField(max_length=1000)),
-                ("blank_field", django_nh3.models.Nh3CharField(blank=True, max_length=1000)),
+                (
+                    "blank_field",
+                    django_nh3.models.Nh3CharField(blank=True, max_length=1000),
+                ),
                 (
                     "null_field",
-                    django_nh3.models.Nh3CharField(blank=True, null=True, max_length=1000),
+                    django_nh3.models.Nh3CharField(
+                        blank=True, null=True, max_length=1000
+                    ),
                 ),
             ],
         ),
@@ -43,10 +48,15 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("content", django_nh3.models.Nh3TextField(max_length=1000)),
-                ("blank_field", django_nh3.models.Nh3TextField(blank=True, max_length=1000)),
+                (
+                    "blank_field",
+                    django_nh3.models.Nh3TextField(blank=True, max_length=1000),
+                ),
                 (
                     "null_field",
-                    django_nh3.models.Nh3TextField(blank=True, null=True, max_length=1000),
+                    django_nh3.models.Nh3TextField(
+                        blank=True, null=True, max_length=1000
+                    ),
                 ),
             ],
         ),
@@ -70,7 +80,12 @@ class Migration(migrations.Migration):
                         max_length=1000,
                     ),
                 ),
-                ("content", django_nh3.models.Nh3CharField(blank=True, null=True, max_length=1000)),
+                (
+                    "content",
+                    django_nh3.models.Nh3CharField(
+                        blank=True, null=True, max_length=1000
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
@@ -93,7 +108,12 @@ class Migration(migrations.Migration):
                         max_length=1000,
                     ),
                 ),
-                ("content", django_nh3.models.Nh3TextField(blank=True, null=True, max_length=1000)),
+                (
+                    "content",
+                    django_nh3.models.Nh3TextField(
+                        blank=True, null=True, max_length=1000
+                    ),
+                ),
             ],
         ),
     ]
