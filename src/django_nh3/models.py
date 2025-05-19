@@ -42,28 +42,28 @@ class Nh3FieldMixin:
         """Makes the field for a ModelForm"""
 
         # If field doesn't have any choices add kwargs expected by Nh3Field.
-        if not self.choices:
+        if not self.choices:  # type: ignore[attr-defined]
             kwargs.update(
                 {
-                    "max_length": self.max_length,
+                    "max_length": self.max_length,  # type: ignore[attr-defined]
                     "attributes": self.nh3_options.get("attributes"),
                     "attribute_filter": self.nh3_options.get("attribute_filter"),
                     "clean_content_tags": self.nh3_options.get("clean_content_tags"),
                     "link_rel": self.nh3_options.get("link_rel"),
                     "strip_comments": self.nh3_options.get("strip_comments"),
                     "tags": self.nh3_options.get("tags"),
-                    "required": not self.blank,
+                    "required": not self.blank,  # type: ignore[attr-defined]
                 }
             )
 
-        return super().formfield(form_class=form_class, **kwargs)
+        return super().formfield(form_class=form_class, **kwargs)  # type: ignore[misc]
 
     def pre_save(self, model_instance: Model, add: bool) -> Any:
-        data = getattr(model_instance, self.attname)
+        data = getattr(model_instance, self.attname)  # type: ignore[attr-defined]
         if data is None:
             return data
         clean_value = nh3.clean(data, **self.nh3_options) if data else ""
-        setattr(model_instance, self.attname, mark_safe(clean_value))
+        setattr(model_instance, self.attname, mark_safe(clean_value))  # type: ignore[attr-defined]
         return clean_value
 
     def from_db_value(
@@ -94,9 +94,10 @@ class Nh3Field(Nh3FieldMixin, models.TextField):
     Use :class:`Nh3TextField` instead.
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:  # type: ignore[no-untyped-def]
         warnings.warn(
-            "Nh3Field is deprecated and will be removed in a future version. Use Nh3TextField instead.",
+            "Nh3Field is deprecated and will be removed in a future version. "
+            "Use Nh3TextField instead.",
             DeprecationWarning,
             stacklevel=2,
         )
