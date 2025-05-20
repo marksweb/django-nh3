@@ -66,7 +66,7 @@ def get_nh3_update_options(
     _clean_content_tags = (
         clean_content_tags or getattr(settings, "NH3_CLEAN_CONTENT_TAGS", None) or set()
     )
-    _link_rel = link_rel or getattr(settings, "NH3_CLEAN_CONTENT_TAGS", "")
+    _link_rel = link_rel or getattr(settings, "NH3_LINK_REL", "")
     _strip_comments = strip_comments or getattr(settings, "NH3_STRIP_COMMENTS", False)
     _tags = tags or getattr(settings, "NH3_ALLOWED_TAGS", None) or set()
 
