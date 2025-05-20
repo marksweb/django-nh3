@@ -7,7 +7,7 @@ import nh3
 from django import forms
 from django.utils.safestring import mark_safe
 
-from src.django_nh3.utils import get_nh3_update_options
+from src.django_nh3.utils import get_nh3_options
 
 
 class Nh3Field(forms.CharField):
@@ -30,7 +30,7 @@ class Nh3Field(forms.CharField):
         super().__init__(*args, **kwargs)
 
         self.empty_value = empty_value
-        self.nh3_options = get_nh3_update_options(
+        self.nh3_options = get_nh3_options(
             tags=tags,
             clean_content_tags=clean_content_tags,
             attributes=attributes,
