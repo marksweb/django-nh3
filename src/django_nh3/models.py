@@ -11,7 +11,7 @@ from django.forms import Field as FormField
 from django.utils.safestring import mark_safe
 
 from . import forms
-from .utils import get_nh3_update_options
+from .utils import get_nh3_options
 
 
 class Nh3Field(models.TextField):
@@ -28,7 +28,7 @@ class Nh3Field(models.TextField):
     ) -> None:
         super().__init__(*args, **kwargs)
 
-        self.nh3_options = get_nh3_update_options(
+        self.nh3_options = get_nh3_options(
             tags=tags,
             clean_content_tags=clean_content_tags,
             attributes=attributes,
