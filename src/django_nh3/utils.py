@@ -29,8 +29,11 @@ def get_nh3_default_options() -> dict[str, Any]:
 
     nh3_settings = {
         "NH3_ALLOWED_TAGS": "tags",
+        "NH3_CLEAN_CONTENT_TAGS": "clean_content_tags",
         "NH3_ALLOWED_ATTRIBUTES": "attributes",
+        "NH3_ALLOWED_ATTRIBUTES_FILTER": "attribute_filter",
         "NH3_STRIP_COMMENTS": "strip_comments",
+        "NH3_LINK_REL": "link_rel",
     }
 
     for setting, kwarg in nh3_settings.items():
