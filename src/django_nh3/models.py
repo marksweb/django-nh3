@@ -17,24 +17,24 @@ from .utils import get_nh3_update_options
 class Nh3Field(models.TextField):
     def __init__(
         self,
+        tags: set[str] | None = None,
+        clean_content_tags: set[str] | None = None,
         attributes: dict[str, set[str]] | None = None,
         attribute_filter: Callable[[str, str, str], str] | None = None,
-        clean_content_tags: set[str] | None = None,
-        link_rel: str = "",
         strip_comments: bool = False,
-        tags: set[str] | None = None,
+        link_rel: str = "",
         *args: Any,
         **kwargs: Any,
     ) -> None:
         super().__init__(*args, **kwargs)
 
         self.nh3_options = get_nh3_update_options(
+            tags=tags,
+            clean_content_tags=clean_content_tags,
             attributes=attributes,
             attribute_filter=attribute_filter,
-            clean_content_tags=clean_content_tags,
-            link_rel=link_rel,
             strip_comments=strip_comments,
-            tags=tags,
+            link_rel=link_rel,
         )
 
     def formfield(
@@ -47,12 +47,12 @@ class Nh3Field(models.TextField):
             kwargs.update(
                 {
                     "max_length": self.max_length,
+                    "tags": self.nh3_options.get("tags"),
+                    "clean_content_tags": self.nh3_options.get("clean_content_tags"),
                     "attributes": self.nh3_options.get("attributes"),
                     "attribute_filter": self.nh3_options.get("attribute_filter"),
-                    "clean_content_tags": self.nh3_options.get("clean_content_tags"),
-                    "link_rel": self.nh3_options.get("link_rel"),
                     "strip_comments": self.nh3_options.get("strip_comments"),
-                    "tags": self.nh3_options.get("tags"),
+                    "link_rel": self.nh3_options.get("link_rel"),
                     "required": not self.blank,
                 }
             )
