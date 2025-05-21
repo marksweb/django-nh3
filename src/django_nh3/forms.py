@@ -21,9 +21,13 @@ class Nh3Field(forms.CharField):
         clean_content_tags: set[str] | None = None,
         attributes: dict[str, set[str]] | None = None,
         attribute_filter: Callable[[str, str, str], str] | None = None,
-        empty_value: Any | None = None,
         strip_comments: bool = False,
         link_rel: str = "",
+        generic_attribute_prefixes: set[str] | None = None,
+        tag_attribute_values: dict[str, dict[str, set[str]]] | None = None,
+        set_tag_attribute_values: dict[str, dict[str, str]] | None = None,
+        url_schemes: set[str] | None = None,
+        empty_value: Any | None = None,
         *args: Any,
         **kwargs: dict[Any, Any],
     ):
@@ -37,6 +41,10 @@ class Nh3Field(forms.CharField):
             attribute_filter=attribute_filter,
             strip_comments=strip_comments,
             link_rel=link_rel,
+            generic_attribute_prefixes=generic_attribute_prefixes,
+            tag_attribute_values=tag_attribute_values,
+            set_tag_attribute_values=set_tag_attribute_values,
+            url_schemes=url_schemes,
         )
 
     def to_python(self, value: Any) -> Any:
