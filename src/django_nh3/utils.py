@@ -155,44 +155,40 @@ def get_nh3_options(
     set_tag_attribute_values: dict[str, dict[str, str]] | None = None,
     url_schemes: set[str] | None = None,
 ) -> dict[str, Any]:
-    _tags = tags or getattr(settings, "NH3_ALLOWED_TAGS", None) or set()
-    _attributes = attributes or getattr(settings, "NH3_ALLOWED_ATTRIBUTES", {})
-    _clean_content_tags = (
-        clean_content_tags or getattr(settings, "NH3_CLEAN_CONTENT_TAGS", None) or set()
+    defaults = get_nh3_configured_default_options()
+
+    tags = tags or defaults.get("tags", None) or set()
+    attributes = attributes or defaults.get("attributes", {})
+    clean_content_tags = (
+        clean_content_tags or defaults.get("clean_content_tags", None) or set()
     )
-    _attribute_filter = attribute_filter or getattr(
-        settings, "NH3_ALLOWED_ATTRIBUTES_FILTER", None
-    )
-    _strip_comments = strip_comments or getattr(settings, "NH3_STRIP_COMMENTS", False)
-    _link_rel = link_rel or getattr(settings, "NH3_LINK_REL", "")
-    _generic_attribute_prefixes = (
+    attribute_filter = attribute_filter or defaults.get("attribute_filter", None)
+    strip_comments = strip_comments or defaults.get("strip_comments", False)
+    link_rel = link_rel or defaults.get("link_rel", "")
+    generic_attribute_prefixes = (
         generic_attribute_prefixes
-        or getattr(settings, "NH3_ALLOWED_GENERIC_ATTRIBUTE_PREFIXES", None)
+        or defaults.get("generic_attribute_prefixes", None)
         or set()
     )
-    _tag_attribute_values = (
-        tag_attribute_values
-        or getattr(settings, "NH3_ALLOWED_TAG_ATTRIBUTE_VALUES", None)
-        or {}
+    tag_attribute_values = (
+        tag_attribute_values or defaults.get("tag_attribute_values", None) or {}
     )
-    _set_tag_attribute_values = (
-        set_tag_attribute_values
-        or getattr(settings, "NH3_SET_TAG_ATTRIBUTE_VALUES", None)
-        or {}
+    set_tag_attribute_values = (
+        set_tag_attribute_values or defaults.get("set_tag_attribute_values", None) or {}
     )
-    _url_schemes = url_schemes or getattr(settings, "", None) or set()
+    url_schemes = url_schemes or defaults.get("url_schemes", None) or set()
 
-    nh3_args = {
-        "tags": set(_tags),
-        "clean_content_tags": set(_clean_content_tags),
-        "attributes": {tag: set(attributes) for tag, attributes in _attributes.items()},
-        "attribute_filter": _attribute_filter,
-        "strip_comments": _strip_comments,
-        "link_rel": _link_rel,
-        "generic_attribute_prefixes": _generic_attribute_prefixes,
-        "tag_attribute_values": _tag_attribute_values,
-        "set_tag_attribute_values": _set_tag_attribute_values,
-        "url_schemes": _url_schemes,
-    }
-
-    return nh3_args
+    return normalize_nh3_options(
+        {
+            "tags": tags,
+            "clean_content_tags": clean_content_tags,
+            "attributes": attributes,
+            "attribute_filter": attribute_filter,
+            "strip_comments": strip_comments,
+            "link_rel": link_rel,
+            "generic_attribute_prefixes": generic_attribute_prefixes,
+            "tag_attribute_values": tag_attribute_values,
+            "set_tag_attribute_values": set_tag_attribute_values,
+            "url_schemes": url_schemes,
+        }
+    )
