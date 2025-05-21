@@ -23,6 +23,10 @@ class Nh3Field(models.TextField):
         attribute_filter: Callable[[str, str, str], str] | None = None,
         strip_comments: bool = False,
         link_rel: str = "",
+        generic_attribute_prefixes: set[str] | None = None,
+        tag_attribute_values: dict[str, dict[str, set[str]]] | None = None,
+        set_tag_attribute_values: dict[str, dict[str, str]] | None = None,
+        url_schemes: set[str] | None = None,
         *args: Any,
         **kwargs: Any,
     ) -> None:
@@ -35,6 +39,10 @@ class Nh3Field(models.TextField):
             attribute_filter=attribute_filter,
             strip_comments=strip_comments,
             link_rel=link_rel,
+            generic_attribute_prefixes=generic_attribute_prefixes,
+            tag_attribute_values=tag_attribute_values,
+            set_tag_attribute_values=set_tag_attribute_values,
+            url_schemes=url_schemes,
         )
 
     def formfield(
@@ -53,6 +61,16 @@ class Nh3Field(models.TextField):
                     "attribute_filter": self.nh3_options.get("attribute_filter"),
                     "strip_comments": self.nh3_options.get("strip_comments"),
                     "link_rel": self.nh3_options.get("link_rel"),
+                    "generic_attribute_prefixes": self.nh3_options.get(
+                        "generic_attribute_prefixes"
+                    ),
+                    "tag_attribute_values": self.nh3_options.get(
+                        "tag_attribute_values"
+                    ),
+                    "set_tag_attribute_values": self.nh3_options.get(
+                        "set_tag_attribute_values"
+                    ),
+                    "url_schemes": self.nh3_options.get("url_schemes"),
                     "required": not self.blank,
                 }
             )
