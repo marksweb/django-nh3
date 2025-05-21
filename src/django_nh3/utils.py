@@ -8,7 +8,7 @@ from django.utils.module_loading import import_string
 logger = logging.getLogger(__name__)
 
 
-def get_nh3_default_options() -> dict[str, Any]:
+def get_nh3_configured_default_options() -> dict[str, Any]:
     """
     Pull the django-nh3 settings similarly to how django-bleach handled them.
 
@@ -26,7 +26,6 @@ def get_nh3_default_options() -> dict[str, Any]:
         BLEACH_STRIP_TAGS           -> This is the default behavior of nh3
 
     """
-    nh3_args: dict[str, Any] = {}
 
     nh3_settings = {
         # Sets the tags that are allowed (eg: allowlist)
@@ -74,60 +73,74 @@ def get_nh3_default_options() -> dict[str, Any]:
         "NH3_ALLOWED_URL_SCHEMES": "url_schemes",
     }
 
-    for setting_name, kwarg in nh3_settings.items():
-        if hasattr(settings, setting_name):
-            setting_value = getattr(settings, setting_name)
+    return {
+        kwarg: getattr(settings, setting_name)
+        for setting_name, kwarg in nh3_settings.items()
+        if hasattr(settings, setting_name)
+    }
 
-            # Convert from general iterables to sets
-            if setting_name in [
-                "NH3_ALLOWED_TAGS",
-                "NH3_CLEAN_CONTENT_TAGS",
-                "NH3_ALLOWED_GENERIC_ATTRIBUTE_PREFIXES",
-                "NH3_ALLOWED_URL_SCHEMES",
-            ]:
-                setting_value = set(setting_value)
 
-            elif setting_name == "NH3_ALLOWED_ATTRIBUTES":
-                copy_dict = setting_value.copy()
-                for tag, attributes in setting_value.items():
-                    copy_dict[tag] = set(attributes)
-                setting_value = copy_dict
+def normalize_nh3_options(  # noqa: C901, PLR0912
+    options: dict[str, Any],
+) -> dict[str, Any]:
+    nh3_args: dict[str, Any] = {}
+    for kwarg_name, kwarg_value in options.items():
+        value = kwarg_value
 
-            elif setting_name == "NH3_ALLOWED_ATTRIBUTES_FILTER":
-                if callable(setting_value):
-                    pass
-                elif isinstance(setting_value, str):
-                    setting_value = import_string(setting_value)
+        # Convert from general iterables to sets
+        if kwarg_name in [
+            "tags",
+            "clean_content_tags",
+            "generic_attribute_prefixes",
+            "url_schemes",
+        ]:
+            value = set(value)
 
-            elif setting_name == "NH3_STRIP_COMMENTS":
-                setting_value = bool(setting_value)
+        elif kwarg_name == "attributes":
+            copy_dict = value.copy()
+            for tag, attributes in value.items():
+                copy_dict[tag] = set(attributes)
+            value = copy_dict
 
-            elif setting_name == "NH3_LINK_REL":
-                setting_value = str(setting_value)
+        elif kwarg_name == "attribute_filter":
+            if callable(value):
+                pass
+            elif isinstance(value, str):
+                value = import_string(value)
 
-            elif setting_name == "NH3_ALLOWED_TAG_ATTRIBUTE_VALUES":
-                # The value is structured as a map from tag names to a map from
-                # attribute names to a set of attribute values.
-                allowed_tag_attr_dict: dict[str, dict[str, set[str]]] = {}
-                for tag_name, attribute_dict in setting_value.items():
-                    allowed_tag_attr_dict[tag_name] = {}
-                    for attr_name, attr_value in attribute_dict.items():
-                        allowed_tag_attr_dict[tag_name][attr_name] = set(attr_value)
-                setting_value = allowed_tag_attr_dict
+        elif kwarg_name == "strip_comments":
+            value = bool(value)
 
-            elif setting_name == "NH3_SET_TAG_ATTRIBUTE_VALUES":
-                # The value is structured as a map from tag names to a map from
-                # attribute names to an attribute value.
-                set_tag_attr_dict: dict[str, dict[str, str]] = {}
-                for tag_name, attribute_dict in setting_value.items():
-                    set_tag_attr_dict[tag_name] = {}
-                    for attr_name, attr_value in attribute_dict.items():
-                        set_tag_attr_dict[tag_name][attr_name] = str(attr_value)
-                setting_value = set_tag_attr_dict
+        elif kwarg_name == "link_rel":
+            value = str(value)
 
-            nh3_args[kwarg] = setting_value
+        elif kwarg_name == "tag_attribute_values":
+            # The value is structured as a map from tag names to a map from
+            # attribute names to a set of attribute values.
+            allowed_tag_attr_dict: dict[str, dict[str, set[str]]] = {}
+            for tag_name, attribute_dict in value.items():
+                allowed_tag_attr_dict[tag_name] = {}
+                for attr_name, attr_value in attribute_dict.items():
+                    allowed_tag_attr_dict[tag_name][attr_name] = set(attr_value)
+            value = allowed_tag_attr_dict
+
+        elif kwarg_name == "set_tag_attribute_values":
+            # The value is structured as a map from tag names to a map from
+            # attribute names to an attribute value.
+            set_tag_attr_dict: dict[str, dict[str, str]] = {}
+            for tag_name, attribute_dict in value.items():
+                set_tag_attr_dict[tag_name] = {}
+                for attr_name, attr_value in attribute_dict.items():
+                    set_tag_attr_dict[tag_name][attr_name] = str(attr_value)
+            value = set_tag_attr_dict
+
+        nh3_args[kwarg_name] = value
 
     return nh3_args
+
+
+def get_nh3_default_options() -> dict[str, Any]:
+    return normalize_nh3_options(get_nh3_configured_default_options())
 
 
 def get_nh3_options(
