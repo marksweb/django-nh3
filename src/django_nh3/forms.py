@@ -7,7 +7,7 @@ import nh3
 from django import forms
 from django.utils.safestring import mark_safe
 
-from src.django_nh3.utils import get_nh3_options
+from .utils import get_nh3_options
 
 
 class Nh3Field(forms.CharField):
