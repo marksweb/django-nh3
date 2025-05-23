@@ -18,7 +18,67 @@ Django 3.2 to 5.1 supported.
 
 .. _nh3 docs: https://nh3.readthedocs.io/en/latest/?badge=latest
 
+Installation
+------------
 
+.. code-block:: bash
+   pip install django-nh3
+
+Usage
+-----
+
+`project/settings.py`
+.. code-block:: python
+  INSTALLED_APPS = [
+      ...
+      "django_nh3",
+      ...
+  ]
+
+  def custom_attributes_filter(tag: str, attribute: str, value: str) -> str | None:
+      return value
+
+  NH3_ALLOWED_ATTRIBUTES = {"h1": {"class"}, "h2": {"class"}, "h3": {"class"}} # default: {}
+  NH3_ALLOWED_ATTRIBUTES_FILTER = custom_attributes_filter # default: None
+  NH3_CLEAN_CONTENT_TAGS = {"style"} # default: set()
+  NH3_LINK_REL = "noopener" # default: ""
+  NH3_STRIP_COMMENTS = True # default: False
+  NH3_ALLOWED_TAGS = {"h1", "h2", "h3"} # default: set()
+
+
+
+
+`apps/your_app/models.py`
+.. code-block:: python
+
+  from django.db import models
+  from django.forms import ModelForm
+  from django.utils.safestring import SafeString
+  from django_nh3.models import Nh3Field
+
+  # get settings from settings.py
+  class YourModel(models.Model):
+      ...
+      content = Nh3Field()
+      ...
+
+  def your_attributes_filter(tag: str, attribute: str, value: str) -> str | None:
+      if attribute == "class":
+          return "custom-class"
+      return None
+
+  # set custom settings
+  class YourModelCustom(models.Model):
+    ...
+    content = Nh3Field(
+        attributes={"h1": {"class"}, "h2": {"class"}, "h3": {"class"}},
+        attribute_filter=your_attributes_filter,
+        clean_content_tags= {"style"},
+        link_rel="stylesheet",
+        strip_comments=True,
+        tags={"h1", "h2", "h3"},
+    )
+    ...
 
 Contributing
 ------------
