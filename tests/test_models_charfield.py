@@ -3,17 +3,17 @@ from django.forms import ModelForm
 from django.test import TestCase
 from django.utils.safestring import SafeString
 
-from django_nh3.models import Nh3Field
+from django_nh3.models import Nh3Char
 
 
 class Nh3Content(models.Model):
     """NH3 test model"""
 
-    content = Nh3Field(
+    content = Nh3Char(
         strip_comments=True,
     )
-    blank_field = Nh3Field(blank=True)
-    null_field = Nh3Field(blank=True, null=True)
+    blank_field = Nh3Char(blank=True)
+    null_field = Nh3Char(blank=True, null=True)
 
 
 class Nh3ContentModelForm(ModelForm):
@@ -28,8 +28,8 @@ class Nh3NullableContent(models.Model):
     """NH3 test model"""
 
     CHOICES = (("f", "first choice"), ("s", "second choice"))
-    choice = Nh3Field(choices=CHOICES, blank=True)
-    content = Nh3Field(blank=True, null=True)
+    choice = Nh3Char(choices=CHOICES, blank=True)
+    content = Nh3Char(blank=True, null=True)
 
 
 class Nh3NullableContentModelForm(ModelForm):
