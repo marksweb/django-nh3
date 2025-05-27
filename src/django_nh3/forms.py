@@ -15,13 +15,13 @@ class Nh3Field(forms.CharField):
 
     def __init__(
         self,
-        attributes: dict[str, set[str]] = {},
-        attribute_filter: Callable[[str, str, str], str] | None = None,
+        allowed_attributes: dict[str, set[str]] = {},
+        allowed_attribute_filter: Callable[[str, str, str], str] | None = None,
         clean_content_tags: set[str] = set(),
         empty_value: Any | None = "",
         link_rel: str = "",
         strip_comments: bool = False,
-        tags: set[str] = set(),
+        allowed_tags: set[str] = set(),
         *args: Any,
         **kwargs: dict[Any, Any],
     ):
@@ -29,12 +29,12 @@ class Nh3Field(forms.CharField):
 
         self.empty_value = empty_value
         self.nh3_options = {
-            "attributes": attributes,
-            "attribute_filter": attribute_filter,
+            "attributes": allowed_attributes,
+            "attribute_filter": allowed_attribute_filter,
             "clean_content_tags": clean_content_tags,
             "link_rel": link_rel,
             "strip_comments": strip_comments,
-            "tags": tags,
+            "tags": allowed_tags,
         }
 
     def to_python(self, value: Any) -> Any:
