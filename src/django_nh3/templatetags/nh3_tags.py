@@ -8,7 +8,7 @@ register = template.Library()
 
 
 @register.filter(name="nh3")
-def nh3_value(value: str | None, tags: str | None = None) -> SafeText | None:
+def nh3_value(value: str | None, allowed_tags: str | None = None) -> SafeText | None:
     """
     Takes an input HTML value and sanitizes it utilizing nh3,
         returning a SafeText object that can be rendered by Django.
@@ -20,9 +20,9 @@ def nh3_value(value: str | None, tags: str | None = None) -> SafeText | None:
         return None
 
     nh3_args = get_nh3_default_options()
-    if tags is not None:
+    if allowed_tags is not None:
         args = nh3_args.copy()
-        args["tags"] = set(tags.split(","))
+        args["tags"] = set(allowed_tags.split(","))
     else:
         args = nh3_args
 
