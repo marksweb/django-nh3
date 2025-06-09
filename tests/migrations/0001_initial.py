@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="Nh3Content",
+            name="Nh3CharFieldContent",
             fields=[
                 (
                     "id",
@@ -22,16 +22,46 @@ class Migration(migrations.Migration):
                         verbose_name="ID",
                     ),
                 ),
-                ("content", django_nh3.models.Nh3Field()),
-                ("blank_field", django_nh3.models.Nh3Field(blank=True)),
+                ("content", django_nh3.models.Nh3CharField(max_length=1000)),
+                (
+                    "blank_field",
+                    django_nh3.models.Nh3CharField(blank=True, max_length=1000),
+                ),
                 (
                     "null_field",
-                    django_nh3.models.Nh3Field(blank=True, null=True),
+                    django_nh3.models.Nh3CharField(
+                        blank=True, null=True, max_length=1000
+                    ),
                 ),
             ],
         ),
         migrations.CreateModel(
-            name="Nh3NullableContent",
+            name="Nh3TextFieldContent",
+            fields=[
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("content", django_nh3.models.Nh3TextField(max_length=1000)),
+                (
+                    "blank_field",
+                    django_nh3.models.Nh3TextField(blank=True, max_length=1000),
+                ),
+                (
+                    "null_field",
+                    django_nh3.models.Nh3TextField(
+                        blank=True, null=True, max_length=1000
+                    ),
+                ),
+            ],
+        ),
+        migrations.CreateModel(
+            name="Nh3CharFieldNullableContent",
             fields=[
                 (
                     "id",
@@ -44,11 +74,46 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "choice",
-                    django_nh3.models.Nh3Field(
-                        choices=[("f", "first choice"), ("s", "second choice")]
+                    django_nh3.models.Nh3CharField(
+                        blank=True,
+                        choices=[("f", "first choice"), ("s", "second choice")],
+                        max_length=1000,
                     ),
                 ),
-                ("content", django_nh3.models.Nh3Field(blank=True, null=True)),
+                (
+                    "content",
+                    django_nh3.models.Nh3CharField(
+                        blank=True, null=True, max_length=1000
+                    ),
+                ),
+            ],
+        ),
+        migrations.CreateModel(
+            name="Nh3TextFieldNullableContent",
+            fields=[
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "choice",
+                    django_nh3.models.Nh3TextField(
+                        blank=True,
+                        choices=[("f", "first choice"), ("s", "second choice")],
+                        max_length=1000,
+                    ),
+                ),
+                (
+                    "content",
+                    django_nh3.models.Nh3TextField(
+                        blank=True, null=True, max_length=1000
+                    ),
+                ),
             ],
         ),
     ]
