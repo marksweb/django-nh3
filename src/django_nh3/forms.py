@@ -22,7 +22,7 @@ class Nh3Field(forms.CharField):
         allowed_attribute_filter: Callable[[str, str, str], str] | None = None,
         allowed_tags: set[str] | None = None,
         clean_content_tags: set[str] | None = None,
-        empty_value: Any | None = None,
+        empty_value: Any | None = "",
         generic_attribute_prefixes: set[str] | None = None,
         link_rel: str = "",
         set_tag_attribute_values: dict[str, dict[str, str]] | None = None,
