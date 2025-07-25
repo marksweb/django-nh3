@@ -7,6 +7,8 @@ import nh3
 from django import forms
 from django.utils.safestring import mark_safe
 
+from .utils import get_nh3_options
+
 
 class Nh3Field(forms.CharField):
     """nh3 form field"""
@@ -15,27 +17,35 @@ class Nh3Field(forms.CharField):
 
     def __init__(
         self,
-        attributes: dict[str, set[str]] = {},
-        attribute_filter: Callable[[str, str, str], str] | None = None,
-        clean_content_tags: set[str] = set(),
-        empty_value: Any | None = "",
-        link_rel: str = "",
-        strip_comments: bool = False,
-        tags: set[str] = set(),
         *args: Any,
+        allowed_attributes: dict[str, set[str]] | None = None,
+        allowed_attribute_filter: Callable[[str, str, str], str] | None = None,
+        allowed_tags: set[str] | None = None,
+        clean_content_tags: set[str] | None = None,
+        empty_value: Any | None = "",
+        generic_attribute_prefixes: set[str] | None = None,
+        link_rel: str = "",
+        set_tag_attribute_values: dict[str, dict[str, str]] | None = None,
+        strip_comments: bool = False,
+        tag_attribute_values: dict[str, dict[str, set[str]]] | None = None,
+        url_schemes: set[str] | None = None,
         **kwargs: dict[Any, Any],
     ):
         super().__init__(*args, **kwargs)
 
         self.empty_value = empty_value
-        self.nh3_options = {
-            "attributes": attributes,
-            "attribute_filter": attribute_filter,
-            "clean_content_tags": clean_content_tags,
-            "link_rel": link_rel,
-            "strip_comments": strip_comments,
-            "tags": tags,
-        }
+        self.nh3_options = get_nh3_options(
+            attributes=allowed_attributes,
+            attribute_filter=allowed_attribute_filter,
+            clean_content_tags=clean_content_tags,
+            generic_attribute_prefixes=generic_attribute_prefixes,
+            link_rel=link_rel,
+            set_tag_attribute_values=set_tag_attribute_values,
+            strip_comments=strip_comments,
+            tags=allowed_tags,
+            tag_attribute_values=tag_attribute_values,
+            url_schemes=url_schemes,
+        )
 
     def to_python(self, value: Any) -> Any:
         """

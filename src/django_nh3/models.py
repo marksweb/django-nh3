@@ -13,30 +13,39 @@ from django.utils.safestring import mark_safe
 from typing_extensions import deprecated
 
 from . import forms
+from .utils import get_nh3_options
 
 
 class Nh3FieldMixin:
     def __init__(
         self,
-        attributes: dict[str, set[str]] = {},
-        attribute_filter: Callable[[str, str, str], str] | None = None,
-        clean_content_tags: set[str] = set(),
-        link_rel: str = "",
-        strip_comments: bool = False,
-        tags: set[str] = set(),
         *args: Any,
+        allowed_attributes: dict[str, set[str]] | None = None,
+        allowed_attribute_filter: Callable[[str, str, str], str] | None = None,
+        allowed_tags: set[str] | None = None,
+        clean_content_tags: set[str] | None = None,
+        generic_attribute_prefixes: set[str] | None = None,
+        link_rel: str = "",
+        set_tag_attribute_values: dict[str, dict[str, str]] | None = None,
+        strip_comments: bool = False,
+        tag_attribute_values: dict[str, dict[str, set[str]]] | None = None,
+        url_schemes: set[str] | None = None,
         **kwargs: Any,
     ) -> None:
         super().__init__(*args, **kwargs)
 
-        self.nh3_options = {
-            "attributes": attributes,
-            "attribute_filter": attribute_filter,
-            "clean_content_tags": clean_content_tags,
-            "link_rel": link_rel,
-            "strip_comments": strip_comments,
-            "tags": tags,
-        }
+        self.nh3_options = get_nh3_options(
+            attributes=allowed_attributes,
+            attribute_filter=allowed_attribute_filter,
+            clean_content_tags=clean_content_tags,
+            generic_attribute_prefixes=generic_attribute_prefixes,
+            link_rel=link_rel,
+            set_tag_attribute_values=set_tag_attribute_values,
+            strip_comments=strip_comments,
+            tags=allowed_tags,
+            tag_attribute_values=tag_attribute_values,
+            url_schemes=url_schemes,
+        )
 
     def formfield(
         self, form_class: FormField = forms.Nh3Field, **kwargs: Any
@@ -47,14 +56,26 @@ class Nh3FieldMixin:
         if not self.choices:  # type: ignore[attr-defined]
             kwargs.update(
                 {
-                    "max_length": self.max_length,  # type: ignore[attr-defined]
-                    "attributes": self.nh3_options.get("attributes"),
-                    "attribute_filter": self.nh3_options.get("attribute_filter"),
+                    "allowed_attributes": self.nh3_options.get("attributes"),
+                    "allowed_attribute_filter": self.nh3_options.get(
+                        "attribute_filter"
+                    ),
+                    "allowed_tags": self.nh3_options.get("tags"),
                     "clean_content_tags": self.nh3_options.get("clean_content_tags"),
+                    "generic_attribute_prefixes": self.nh3_options.get(
+                        "generic_attribute_prefixes"
+                    ),
                     "link_rel": self.nh3_options.get("link_rel"),
-                    "strip_comments": self.nh3_options.get("strip_comments"),
-                    "tags": self.nh3_options.get("tags"),
+                    "max_length": self.max_length,  # type: ignore[attr-defined]
                     "required": not self.blank,  # type: ignore[attr-defined]
+                    "set_tag_attribute_values": self.nh3_options.get(
+                        "set_tag_attribute_values"
+                    ),
+                    "strip_comments": self.nh3_options.get("strip_comments"),
+                    "tag_attribute_values": self.nh3_options.get(
+                        "tag_attribute_values"
+                    ),
+                    "url_schemes": self.nh3_options.get("url_schemes"),
                 }
             )
 
