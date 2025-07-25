@@ -1,46 +1,11 @@
-from django.db import models
-from django.forms import ModelForm
 from django.test import TestCase
 from django.utils.safestring import SafeString
 
-from django_nh3.models import Nh3Field
+from .forms import Nh3CharFieldContentModelForm, Nh3CharFieldNullableContentModelForm
+from .models import Nh3CharFieldContent, Nh3CharFieldNullableContent
 
 
-class Nh3Content(models.Model):
-    """NH3 test model"""
-
-    content = Nh3Field(
-        strip_comments=True,
-    )
-    blank_field = Nh3Field(blank=True)
-    null_field = Nh3Field(blank=True, null=True)
-
-
-class Nh3ContentModelForm(ModelForm):
-    """NH3 test model form"""
-
-    class Meta:
-        model = Nh3Content
-        fields = ["content"]
-
-
-class Nh3NullableContent(models.Model):
-    """NH3 test model"""
-
-    CHOICES = (("f", "first choice"), ("s", "second choice"))
-    choice = Nh3Field(choices=CHOICES, blank=True)
-    content = Nh3Field(blank=True, null=True)
-
-
-class Nh3NullableContentModelForm(ModelForm):
-    """NH3 test model form"""
-
-    class Meta:
-        model = Nh3NullableContent
-        fields = ["choice"]
-
-
-class TestNh3ModelField(TestCase):
+class TestNh3ModelCharField(TestCase):
     """Test model field"""
 
     def test_cleaning(self):
@@ -57,32 +22,32 @@ class TestNh3ModelField(TestCase):
         }
 
         for key, value in test_data.items():
-            obj = Nh3Content.objects.create(content=value)
+            obj = Nh3CharFieldContent.objects.create(content=value)
             self.assertEqual(obj.content, expected_values[key])
 
     def test_retrieved_values_are_template_safe(self):
-        obj = Nh3Content.objects.create(content="some content")
+        obj = Nh3CharFieldContent.objects.create(content="some content")
         obj.refresh_from_db()
         self.assertIsInstance(obj.content, SafeString)
-        obj = Nh3Content.objects.create(content="")
+        obj = Nh3CharFieldContent.objects.create(content="")
         obj.refresh_from_db()
         self.assertIsInstance(obj.content, SafeString)
 
     def test_saved_values_are_template_safe(self):
-        obj = Nh3Content(content="some content")
+        obj = Nh3CharFieldContent(content="some content")
         obj.save()
         self.assertIsInstance(obj.content, SafeString)
-        obj = Nh3Content(content="")
+        obj = Nh3CharFieldContent(content="")
         obj.save()
         self.assertIsInstance(obj.content, SafeString)
 
     def test_saved_none_values_are_none(self):
-        obj = Nh3Content(null_field=None)
+        obj = Nh3CharFieldContent(null_field=None)
         obj.save()
         self.assertIsNone(obj.null_field)
 
 
-class TestNh3NullableModelField(TestCase):
+class TestNh3CharFieldNullableModelField(TestCase):
     """Test model field"""
 
     def test_cleaning(self):
@@ -101,11 +66,11 @@ class TestNh3NullableModelField(TestCase):
         }
 
         for key, value in test_data.items():
-            obj = Nh3NullableContent.objects.create(content=value)
+            obj = Nh3CharFieldNullableContent.objects.create(content=value)
             self.assertEqual(obj.content, expected_values[key])
 
 
-class TestNh3ModelFormField(TestCase):
+class TestNh3CharFieldModelFormField(TestCase):
     """Test model form field"""
 
     def test_cleaning(self):
@@ -122,7 +87,7 @@ class TestNh3ModelFormField(TestCase):
         }
 
         for key, value in test_data.items():
-            form = Nh3ContentModelForm(data={"content": value})
+            form = Nh3CharFieldContentModelForm(data={"content": value})
             self.assertTrue(form.is_valid())
             obj = form.save()
             self.assertEqual(obj.content, expected_values[key])
@@ -131,17 +96,17 @@ class TestNh3ModelFormField(TestCase):
         """Content field strips comments so ensure they aren't allowed"""
 
         self.assertFalse(
-            Nh3ContentModelForm(
+            Nh3CharFieldContentModelForm(
                 data={"content": "<!-- this is a comment -->"}
             ).is_valid()
         )
 
     def test_field_choices(self):
         """Content field strips comments so ensure they aren't allowed"""
-        test_data = dict(Nh3NullableContent.CHOICES)
+        test_data = dict(Nh3CharFieldNullableContent.CHOICES)
 
         for key, value in test_data.items():
-            form = Nh3NullableContentModelForm(data={"choice": key})
+            form = Nh3CharFieldNullableContentModelForm(data={"choice": key})
             self.assertTrue(form.is_valid())
             obj = form.save()
             self.assertEqual(obj.get_choice_display(), value)
