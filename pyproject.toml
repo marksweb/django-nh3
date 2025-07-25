@@ -40,6 +40,7 @@ classifiers = [
 dependencies = [
   "django>=3.2",
   "nh3",
+  "typing-extensions",
 ]
 
 urls.Changelog = "https://github.com/marksweb/django-nh3/blob/main/CHANGELOG.rst"
