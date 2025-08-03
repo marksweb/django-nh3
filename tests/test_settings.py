@@ -135,7 +135,7 @@ class TestNormalizeNh3Options(TestCase):
             ),
             (
                 {"link_rel": None},
-                {"link_rel": "None"},
+                {"link_rel": None},
             ),
             (
                 {"link_rel": True},
