@@ -111,7 +111,7 @@ def normalize_nh3_options(  # noqa: C901, PLR0912
         elif kwarg_name == "strip_comments":
             value = bool(value)
 
-        elif kwarg_name == "link_rel":
+        elif kwarg_name == "link_rel" and value is not None:
             value = str(value)
 
         elif kwarg_name == "tag_attribute_values":
@@ -149,7 +149,7 @@ def get_nh3_options(
     attributes: dict[str, set[str]] | None = None,
     attribute_filter: Callable[[str, str, str], str] | None = None,
     strip_comments: bool = False,
-    link_rel: str = "",
+    link_rel: str | None = None,
     generic_attribute_prefixes: set[str] | None = None,
     tag_attribute_values: dict[str, dict[str, set[str]]] | None = None,
     set_tag_attribute_values: dict[str, dict[str, str]] | None = None,
@@ -164,7 +164,7 @@ def get_nh3_options(
     )
     attribute_filter = attribute_filter or defaults.get("attribute_filter", None)
     strip_comments = strip_comments or defaults.get("strip_comments", False)
-    link_rel = link_rel or defaults.get("link_rel", "")
+    link_rel = link_rel or defaults.get("link_rel", None)
     generic_attribute_prefixes = (
         generic_attribute_prefixes
         or defaults.get("generic_attribute_prefixes", None)
