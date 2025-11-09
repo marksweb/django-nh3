@@ -6,7 +6,7 @@ requires = [
 
 [project]
 name = "django-nh3"
-version = "0.2.0"
+version = "0.2.1"
 description = "Django integration with for nh3, Python binding to Ammonia HTML sanitizer Rust crate."
 readme = "README.rst"
 keywords = [

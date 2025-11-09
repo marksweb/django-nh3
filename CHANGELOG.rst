@@ -6,6 +6,18 @@ unreleased
 ==========
 
 
+0.2.1 - 2025-11-09
+==================
+* ci: pre-commit autoupdate in `PR 67`_
+* Allow link_rel None option value to pass to nh3 by `@Pantzan`_ in `PR 61`_
+
+## New Contributors
+* `@Pantzan`_ made their first contribution in `PR 61`_
+
+.. _PR 61: https://github.com/marksweb/django-nh3/pull/61
+.. _PR 67: https://github.com/marksweb/django-nh3/pull/67
+.. _@Pantzan: https://github.com/Pantzan
+
 0.2.0 - 2025-10-03
 ==================
 
