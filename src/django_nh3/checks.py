@@ -1,14 +1,19 @@
+from typing import Any
+
+from django.apps import AppConfig
 from django.conf import settings
-from django.core.checks import Tags, Warning, register
+from django.core.checks import CheckMessage, Tags, Warning, register
 
 
 @register(Tags.security)
-def check_nh3_settings(app_configs, **kwargs):
+def check_nh3_settings(
+    app_configs: list[AppConfig] | None, **kwargs: Any
+) -> list[CheckMessage]:
     """
     Inspects the NH3_ALLOWED_ATTRIBUTES setting to ensure that the 'style'
     attribute is not allowed, as nh3 does not sanitize CSS content.
     """
-    errors = []
+    errors: list[CheckMessage] = []
     allowed_attributes = getattr(settings, "NH3_ALLOWED_ATTRIBUTES", {})
 
     found_style = False
