@@ -7,5 +7,5 @@ class DjangoNh3AppConfig(AppConfig):
     name = "django_nh3"
     verbose_name = "django-nh3"
 
-    def ready(self):
+    def ready(self) -> None:
         from . import checks  # noqa: F401
