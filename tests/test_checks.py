@@ -10,7 +10,7 @@ def test_check_warns_about_style():
     assert errors[0].id == "django_nh3.W001"
 
 
-@override_settings(NH3_ALLOWED_ATTRIBUTES={"div": {"class", "href"}})
+@override_settings(NH3_ALLOWED_ATTRIBUTES={"div": {"class", "id"}})
 def test_check_is_silent_when_safe():
     errors = check_nh3_settings(None)
     assert len(errors) == 0
