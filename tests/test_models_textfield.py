@@ -12,11 +12,17 @@ class TestNh3TextFieldModelField(TestCase):
         """Test values are sanitized"""
         test_data = {
             "html_data": "<h1>Heading</h1>",
+            "html_data_not_allowed_style": "<a style='background: url(github.com)'>"
+            "Heading"
+            "</a>",
+            "html_data_allowed_style": "<a style='text-align:center'>Heading</a>",
             "no_html": "Heading",
             "html_comment": "<!-- this is a comment -->",
         }
         expected_values = {
             "html_data": "Heading",
+            "html_data_not_allowed_style": "<a>Heading</a>",
+            "html_data_allowed_style": '<a style="text-align:center">Heading</a>',
             "no_html": "Heading",
             "html_comment": "",
         }
@@ -77,11 +83,16 @@ class TestNh3TextFieldModelFormField(TestCase):
         """Test values are sanitized"""
         test_data = {
             "html_data": "<h1>Heading</h1>",
+            "html_data_not_allowed_style": "<a style='background: url(github.com)'>"
+            "Heading</a>",
+            "html_data_allowed_style": "<a style='text-align:center'>Heading</a>",
             "no_html": "Heading",
             "spacing": " Heading ",
         }
         expected_values = {
             "html_data": "Heading",
+            "html_data_not_allowed_style": "<a>Heading</a>",
+            "html_data_allowed_style": '<a style="text-align:center">Heading</a>',
             "no_html": "Heading",
             "spacing": "Heading",
         }

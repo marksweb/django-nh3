@@ -29,3 +29,15 @@ class TestNh3Field(TestCase):
         self.assertEqual(field.to_python("some text"), "some text")
         self.assertEqual(field.to_python(" some text "), "some text")
         self.assertEqual(field.to_python("<h1>some text</h1>"), "some text")
+        self.assertEqual(
+            field.to_python("<h1 style='text-align: center'>some text</h1>"),
+            "some text",
+        )
+        self.assertEqual(
+            field.to_python("<a style='text-align: center'>some text</a>"),
+            '<a style="text-align:center">some text</a>',
+        )
+        self.assertEqual(
+            field.to_python("<a style='margin-top: 1px'>some text</a>"),
+            '<a style="">some text</a>',
+        )

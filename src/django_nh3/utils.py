@@ -22,7 +22,7 @@ def get_nh3_configured_default_options() -> dict[str, Any]:
 
     While other settings have no current support in nh3:
 
-        BLEACH_ALLOWED_STYLES       -> There is no support for styling
+        BLEACH_ALLOWED_STYLES       -> NH3_FILTER_STYLE_PROPERTIES
         BLEACH_STRIP_TAGS           -> This is the default behavior of nh3
 
     """
@@ -71,6 +71,9 @@ def get_nh3_configured_default_options() -> dict[str, Any]:
         "NH3_SET_TAG_ATTRIBUTE_VALUES": "set_tag_attribute_values",
         # Sets the URL schemes permitted on href and src attributes
         "NH3_ALLOWED_URL_SCHEMES": "url_schemes",
+        # Sets the allowed inline style properties. Valid if "style" is in
+        # allowed attributes
+        "NH3_FILTER_STYLE_PROPERTIES": "filter_style_properties",
     }
 
     return {
@@ -153,6 +156,7 @@ def get_nh3_options(
     generic_attribute_prefixes: set[str] | None = None,
     tag_attribute_values: dict[str, dict[str, set[str]]] | None = None,
     set_tag_attribute_values: dict[str, dict[str, str]] | None = None,
+    filter_style_properties: set[str] | None = None,
     url_schemes: set[str] | None = None,
 ) -> dict[str, Any]:
     defaults = get_nh3_configured_default_options()
@@ -177,6 +181,9 @@ def get_nh3_options(
         set_tag_attribute_values or defaults.get("set_tag_attribute_values", None) or {}
     )
     url_schemes = url_schemes or defaults.get("url_schemes", None) or set()
+    filter_style_properties = filter_style_properties or defaults.get(
+        "filter_style_properties", None
+    )
 
     return normalize_nh3_options(
         {
@@ -189,6 +196,7 @@ def get_nh3_options(
             "generic_attribute_prefixes": generic_attribute_prefixes,
             "tag_attribute_values": tag_attribute_values,
             "set_tag_attribute_values": set_tag_attribute_values,
+            "filter_style_properties": filter_style_properties,
             "url_schemes": url_schemes,
         }
     )
