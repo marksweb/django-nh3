@@ -29,6 +29,7 @@ class Nh3FieldMixin:
         set_tag_attribute_values: dict[str, dict[str, str]] | None = None,
         strip_comments: bool = False,
         tag_attribute_values: dict[str, dict[str, set[str]]] | None = None,
+        filter_style_properties: set[str] | None = None,
         url_schemes: set[str] | None = None,
         **kwargs: Any,
     ) -> None:
@@ -44,6 +45,7 @@ class Nh3FieldMixin:
             strip_comments=strip_comments,
             tags=allowed_tags,
             tag_attribute_values=tag_attribute_values,
+            filter_style_properties=filter_style_properties,
             url_schemes=url_schemes,
         )
 
@@ -75,6 +77,9 @@ class Nh3FieldMixin:
                     "tag_attribute_values": self.nh3_options.get(
                         "tag_attribute_values"
                     ),
+                    "filter_style_properties": self.nh3_options.get(
+                        "filter_style_properties"
+                    ),
                     "url_schemes": self.nh3_options.get("url_schemes"),
                 }
             )
@@ -86,6 +91,11 @@ class Nh3FieldMixin:
         if data is None:
             return data
         clean_value = nh3.clean(data, **self.nh3_options) if data else ""
+
+        # nh3 leaves an empty style="" if it cleans all style attributes.
+        # remove it manually until ammonia/nh3 addresses it
+        clean_value = clean_value.replace(' style=""', "").replace(" style=''", "")
+
         setattr(model_instance, self.attname, mark_safe(clean_value))  # type: ignore[attr-defined]
         return clean_value
 

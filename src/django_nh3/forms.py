@@ -28,6 +28,7 @@ class Nh3Field(forms.CharField):
         set_tag_attribute_values: dict[str, dict[str, str]] | None = None,
         strip_comments: bool = False,
         tag_attribute_values: dict[str, dict[str, set[str]]] | None = None,
+        filter_style_properties: set[str] | None = None,
         url_schemes: set[str] | None = None,
         **kwargs: dict[Any, Any],
     ):
@@ -44,6 +45,7 @@ class Nh3Field(forms.CharField):
             strip_comments=strip_comments,
             tags=allowed_tags,
             tag_attribute_values=tag_attribute_values,
+            filter_style_properties=filter_style_properties,
             url_schemes=url_schemes,
         )
 
