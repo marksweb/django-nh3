@@ -37,3 +37,10 @@ TEMPLATES = [
         },
     }
 ]
+
+NH3_ALLOWED_ATTRIBUTES = {
+    "a": {"style"},
+    "img": {"src"},
+}
+NH3_FILTER_STYLE_PROPERTIES = {"text-align"}
+NH3_ALLOWED_TAGS = {"a"}
