@@ -181,8 +181,10 @@ def get_nh3_options(
         set_tag_attribute_values or defaults.get("set_tag_attribute_values", None) or {}
     )
     url_schemes = url_schemes or defaults.get("url_schemes", None) or set()
-    filter_style_properties = filter_style_properties or defaults.get(
-        "filter_style_properties", None
+    filter_style_properties = (
+        filter_style_properties
+        or defaults.get("filter_style_properties", None)
+        or set()
     )
 
     return normalize_nh3_options(
