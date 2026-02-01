@@ -28,12 +28,12 @@ def get_nh3_configured_default_options() -> dict[str, Any]:
     """
 
     nh3_settings = {
-        # Sets the tags that are allowed (eg: allowlist)
+        # Sets the tags that are allowed (e.g.: allowlist)
         # Ensure that no tags in this are also in NH3_CLEAN_CONTENT_TAGS or
         # NH3_ALLOWED_ATTRIBUTES
         "NH3_ALLOWED_TAGS": "tags",
         # Sets the tags whose contents will be completely removed from the
-        # output (eg: blocklist)
+        # output (e.g.: blocklist)
         # Ensure that no tags in this are also in NH3_ALLOWED_TAGS or
         # NH3_ALLOWED_ATTRIBUTES
         # Default: script, style

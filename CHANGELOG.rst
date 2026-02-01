@@ -4,12 +4,16 @@ Changelog
 
 unreleased
 ==========
+
+0.3.0 - 2026-02-01
+==================
 * Add system check warning for unsafe 'style' attribute by `@shayanTaki`_ in `PR 73`_
 * docs: Documentation updates. Usage example added. by `@KozyrevIvan`_ in `PR 35`_
 * Support nh3 filter_style_properties option by `@Pantzan`_ in `PR 76`_
 
-## New Contributors
-* `@shayanTaki`_ made their first contribution in https://github.com/marksweb/django-nh3/pull/73
+**New Contributors**
+
+* `@shayanTaki`_ made their first contribution in `PR 73`_
 
 .. _PR 73: https://github.com/marksweb/django-nh3/pull/73
 .. _PR 35: https://github.com/marksweb/django-nh3/pull/35
@@ -21,7 +25,8 @@ unreleased
 * ci: pre-commit autoupdate in `PR 67`_
 * Allow link_rel None option value to pass to nh3 by `@Pantzan`_ in `PR 61`_
 
-## New Contributors
+**New Contributors**
+
 * `@Pantzan`_ made their first contribution in `PR 61`_
 
 .. _PR 61: https://github.com/marksweb/django-nh3/pull/61

@@ -6,11 +6,14 @@ requires = [
 
 [project]
 name = "django-nh3"
-version = "0.2.1"
+version = "0.3.0"
 description = "Django integration with for nh3, Python binding to Ammonia HTML sanitizer Rust crate."
 readme = "README.rst"
 keywords = [
   "Django",
+  "html",
+  "nh3",
+  "sanitize",
 ]
 license = { file = "LICENSE" }
 authors = [
