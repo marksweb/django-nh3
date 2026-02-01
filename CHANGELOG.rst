@@ -4,7 +4,17 @@ Changelog
 
 unreleased
 ==========
+* Add system check warning for unsafe 'style' attribute by `@shayanTaki`_ in `PR 73`_
+* docs: Documentation updates. Usage example added. by `@KozyrevIvan`_ in `PR 35`_
+* Support nh3 filter_style_properties option by `@Pantzan`_ in `PR 76`_
 
+## New Contributors
+* `@shayanTaki`_ made their first contribution in https://github.com/marksweb/django-nh3/pull/73
+
+.. _PR 73: https://github.com/marksweb/django-nh3/pull/73
+.. _PR 35: https://github.com/marksweb/django-nh3/pull/35
+.. _PR 76: https://github.com/marksweb/django-nh3/pull/76
+.. _@shayanTaki: https://github.com/shayanTaki
 
 0.2.1 - 2025-11-09
 ==================
