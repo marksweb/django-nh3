@@ -1,5 +1,6 @@
 from django.template import Context, Template
 from django.test import TestCase
+from django.utils.functional import lazystr
 
 
 class TestBleachTemplates(TestCase):
@@ -39,3 +40,14 @@ class TestBleachTemplates(TestCase):
         )
         rendered_template = template_to_render.render(context)
         self.assertInHTML('<img src="">I\'m not trying to XSS you', rendered_template)
+
+    def test_bleaching_promise(self):
+        """Test that Promise objects can be sanitised"""
+        context = Context(
+            {"some_unsafe_content": lazystr('<script>alert("Hello World!")</script>')},
+        )
+        template_to_render = Template(
+            "{% load nh3_tags %}" "{{ some_unsafe_content|nh3 }}"
+        )
+        rendered_template = template_to_render.render(context)
+        self.assertEqual("", rendered_template)
