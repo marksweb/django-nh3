@@ -1,5 +1,6 @@
 import nh3
 from django import template
+from django.utils.functional import Promise
 from django.utils.safestring import SafeText, mark_safe
 
 from django_nh3.utils import get_nh3_default_options
@@ -18,6 +19,9 @@ def nh3_value(value: str | None, allowed_tags: str | None = None) -> SafeText | 
     """
     if value is None:
         return None
+
+    if isinstance(value, Promise):
+        value = str(value)
 
     nh3_args = get_nh3_default_options()
     if allowed_tags is not None:
