@@ -5,6 +5,18 @@ Changelog
 unreleased
 ==========
 
+
+0.3.1 - 2026-02-20
+==================
+* fix: Add support for using nh3 template tag on Promise objects by `@bmispelon`_ in `PR 79`_
+
+**New Contributors**
+
+* `@bmispelon`_ made their first contribution in `PR 79`_
+
+.. _PR 79: https://github.com/marksweb/django-nh3/pull/79
+.. _@bmispelon: https://github.com/shayanTaki
+
 0.3.0 - 2026-02-01
 ==================
 * Add system check warning for unsafe 'style' attribute by `@shayanTaki`_ in `PR 73`_
