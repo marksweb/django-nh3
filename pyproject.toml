@@ -47,17 +47,13 @@ dependencies = [
   "nh3",
   "typing-extensions",
 ]
-
 urls.Changelog = "https://github.com/marksweb/django-nh3/blob/main/CHANGELOG.rst"
-
 urls.Mastodon = "https://fosstodon.org/@markwalker"
-
 urls.Repository = "https://github.com/marksweb/django-nh3"
-
 urls.Twitter = "https://twitter.com/markwalker_"
 
-[tool.setuptools.packages.find]
-where = [
+[tool.setuptools]
+packages.find.where = [
   "src",
 ]
 
@@ -67,7 +63,19 @@ extend-exclude = [
   ".env",
   ".ruff_cache",
 ]
-
+ignore = [
+  "B006",    # Do not use mutable data structures for argument defaults
+  "PLR0913", # Too many arguments to function call,
+]
+isort.combine-as-imports = true
+per-file-ignores."__init__.py" = [
+  "F401", # unused-import
+]
+per-file-ignores."src/django_nh3/forms.py" = [
+  "UP035", # import-replacements - breaks type hint Callable
+]
+# Preserve types, even if a file imports `from __future__ import annotations`.
+pyupgrade.keep-runtime-typing = true
 # https://beta.ruff.rs/docs/configuration/
 select = [
   "E",   # pycodestyle errors
@@ -83,49 +91,28 @@ select = [
   "UP",  # pyupgrade
 ]
 
-ignore = [
-  "B006",    # Do not use mutable data structures for argument defaults
-  "PLR0913", # Too many arguments to function call,
-]
-
-isort.combine-as-imports = true
-# Preserve types, even if a file imports `from __future__ import annotations`.
-pyupgrade.keep-runtime-typing = true
-per-file-ignores."__init__.py" = [
-  "F401", # unused-import
-]
-per-file-ignores."src/django_nh3/forms.py" = [
-  "UP035", # import-replacements - breaks type hint Callable
-]
-
 [tool.pytest]
 DJANGO_SETTINGS_MODULE = "tests.settings"
 django_find_project = false
-
-[tool.pytest.ini_options]
-addopts = """\
+ini_options.addopts = """\
     --strict-config
     --strict-markers
     --ds=tests.settings
     """
-django_find_project = false
+ini_options.django_find_project = false
 
-[tool.coverage.run]
-branch = true
-parallel = true
-source = [
+[tool.coverage]
+run.branch = true
+run.parallel = true
+run.source = [
   "django_nh3",
   "tests",
 ]
-
-[tool.coverage.paths]
-source = [
+paths.source = [
   "src",
   ".tox/py*/**/site-packages",
 ]
-
-[tool.coverage.report]
-show_missing = true
+report.show_missing = true
 
 [tool.mypy]
 check_untyped_defs = true
@@ -138,10 +125,7 @@ no_implicit_optional = true
 show_error_codes = true
 warn_unreachable = true
 warn_unused_ignores = true
-
-[[tool.mypy.overrides]]
-module = "tests.*"
-allow_untyped_defs = true
+overrides = [ { module = "tests.*", allow_untyped_defs = true } ]
 
 [tool.rstcheck]
 ignore_directives = [
