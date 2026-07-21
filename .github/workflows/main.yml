@@ -32,7 +32,7 @@ jobs:
         - '3.13'
 
     steps:
-    - uses: actions/checkout@v6
+    - uses: actions/checkout@v7
 
     - uses: actions/setup-python@v7
       with:
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-24.04
     needs: tests
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - uses: actions/setup-python@v7
         with:
