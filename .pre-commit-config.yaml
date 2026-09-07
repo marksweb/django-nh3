@@ -22,7 +22,7 @@ repos:
   - id: end-of-file-fixer
   - id: trailing-whitespace
 - repo: https://github.com/tox-dev/pyproject-fmt
-  rev: v2.25.1
+  rev: v2.29.3
   hooks:
   - id: pyproject-fmt
 - repo: https://github.com/asottile/setup-cfg-fmt
@@ -32,7 +32,7 @@ repos:
     args:
     - --include-version-classifiers
 - repo: https://github.com/rstcheck/rstcheck
-  rev: v6.2.5
+  rev: v6.3.0
   hooks:
   - id: rstcheck
     additional_dependencies:
@@ -54,20 +54,20 @@ repos:
     additional_dependencies:
     - black==23.12.0
 - repo: https://github.com/pre-commit/mirrors-mypy
-  rev: v2.1.0
+  rev: v2.3.1
   hooks:
   - id: mypy
 - repo: https://github.com/astral-sh/ruff-pre-commit
-  rev: "v0.15.20"
+  rev: "v0.16.6"
   hooks:
     - id: ruff
       args: [--fix, --exit-non-zero-on-fix]
 - repo: https://github.com/adamchainz/django-upgrade
-  rev: "1.31.1"
+  rev: "1.32.0"
   hooks:
     - id: django-upgrade
       args: [--target-version, "5.0"]
 - repo: https://github.com/tox-dev/tox-ini-fmt
-  rev: 1.7.1
+  rev: 1.9.0
   hooks:
   - id: tox-ini-fmt
