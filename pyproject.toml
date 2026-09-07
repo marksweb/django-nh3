@@ -63,21 +63,21 @@ extend-exclude = [
   ".env",
   ".ruff_cache",
 ]
-ignore = [
+lint.ignore = [
   "B006",    # Do not use mutable data structures for argument defaults
   "PLR0913", # Too many arguments to function call,
 ]
-isort.combine-as-imports = true
-per-file-ignores."__init__.py" = [
+lint.isort.combine-as-imports = true
+lint.per-file-ignores."__init__.py" = [
   "F401", # unused-import
 ]
-per-file-ignores."src/django_nh3/forms.py" = [
+lint.per-file-ignores."src/django_nh3/forms.py" = [
   "UP035", # import-replacements - breaks type hint Callable
 ]
 # Preserve types, even if a file imports `from __future__ import annotations`.
-pyupgrade.keep-runtime-typing = true
+lint.pyupgrade.keep-runtime-typing = true
 # https://beta.ruff.rs/docs/configuration/
-select = [
+lint.select = [
   "E",   # pycodestyle errors
   "W",   # pycodestyle warnings
   "F",   # pyflakes
