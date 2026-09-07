@@ -115,12 +115,12 @@ django_find_project = false
 DJANGO_SETTINGS_MODULE = "tests.settings"
 
 [tool.coverage]
-run.branch = true
-run.parallel = true
 run.source = [
   "django_nh3",
   "tests",
 ]
+run.branch = true
+run.parallel = true
 paths.source = [
   "src",
   ".tox/py*/**/site-packages",
