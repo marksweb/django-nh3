@@ -63,33 +63,33 @@ extend-exclude = [
   ".env",
   ".ruff_cache",
 ]
+# https://beta.ruff.rs/docs/configuration/
+lint.select = [
+  "B",   # flake8-bugbear
+  "C",   # flake8-comprehensions
+  "E",   # pycodestyle errors
+  "F",   # pyflakes
+  "I",   # isort
+  "PLE", # pylint error
+  "PLR", # pylint refactor
+  "PLW", # pylint warning
+  "Q",   # flake8-quotes
+  "UP",  # pyupgrade
+  "W",   # pycodestyle warnings
+]
 lint.ignore = [
   "B006",    # Do not use mutable data structures for argument defaults
   "PLR0913", # Too many arguments to function call,
 ]
-lint.isort.combine-as-imports = true
 lint.per-file-ignores."__init__.py" = [
   "F401", # unused-import
 ]
 lint.per-file-ignores."src/django_nh3/forms.py" = [
   "UP035", # import-replacements - breaks type hint Callable
 ]
+lint.isort.combine-as-imports = true
 # Preserve types, even if a file imports `from __future__ import annotations`.
 lint.pyupgrade.keep-runtime-typing = true
-# https://beta.ruff.rs/docs/configuration/
-lint.select = [
-  "E",   # pycodestyle errors
-  "W",   # pycodestyle warnings
-  "F",   # pyflakes
-  "I",   # isort
-  "C",   # flake8-comprehensions
-  "B",   # flake8-bugbear
-  "Q",   # flake8-quotes
-  "PLE", # pylint error
-  "PLR", # pylint refactor
-  "PLW", # pylint warning
-  "UP",  # pyupgrade
-]
 
 [tool.mypy]
 mypy_path = "src/"
