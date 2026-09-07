@@ -146,7 +146,7 @@ def get_nh3_default_options() -> dict[str, Any]:
     return normalize_nh3_options(get_nh3_configured_default_options())
 
 
-def get_nh3_options(
+def get_nh3_options(  # noqa: PLR0917
     tags: set[str] | None = None,
     clean_content_tags: set[str] | None = None,
     attributes: dict[str, set[str]] | None = None,
